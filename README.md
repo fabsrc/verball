@@ -1,6 +1,6 @@
 # Verball
 
-:left_speech_bubble: API for verbs from different languages.
+💬 API for verbs from different languages.
 
 ## Install
 
