@@ -10,7 +10,10 @@
   },
   "keywords": [
     "api",
-    "verbs"
+    "verbs",
+    "languages",
+    "dictionary",
+    "translation"
   ],
   "author": "Fabian Schneider <fabbbbbi@googlemail.com>",
   "license": "MIT",
