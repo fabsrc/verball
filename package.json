@@ -25,6 +25,7 @@
     "mongoose": "^4.6.0",
     "mongoose-unique-validator": "^1.0.2",
     "restify": "^5.0.0-beta-1",
+    "restify-errors": "^4.3.0",
     "restify-plugins": "^1.1.0"
   },
   "devDependencies": {

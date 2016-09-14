@@ -11,18 +11,20 @@ const LanguageSchema = new Schema(
       unique: true,
       lowercase: true
     },
-    name: { type: String, required: true },
-    nameEN: { type: String, required: true }
+    name: {
+      type: String,
+      required: true,
+      lowercase: true
+    },
+    nameEN: {
+      type: String,
+      required: true,
+      lowercase: true
+    }
   }
 )
 
 LanguageSchema.plugin(uniqueValidator)
-
-LanguageSchema.pre('save', function (next) {
-  this.name = this.name[0].toUpperCase() + this.name.substr(1)
-  this.nameEN = this.nameEN[0].toUpperCase() + this.nameEN.substr(1)
-  next()
-})
 
 const Language = mongoose.model('Language', LanguageSchema)
 export default Language
