@@ -23,7 +23,9 @@
   },
   "dependencies": {
     "mongoose": "^4.6.0",
-    "restify": "^4.1.1"
+    "mongoose-unique-validator": "^1.0.2",
+    "restify": "^5.0.0-beta-1",
+    "restify-plugins": "^1.1.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",
