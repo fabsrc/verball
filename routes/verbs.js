@@ -3,7 +3,13 @@ import Verb from '../models/verb'
 
 export default function (server) {
   server.get('/verbs', (req, res, next) => {
-    Verb.find().exec((err, verbs) => {
+    let query = {}
+
+    if (req.query.q) {
+      query.infinitive = req.query.q
+    }
+
+    Verb.find(query).exec((err, verbs) => {
       if (err) return next(err)
 
       return res.send(verbs)
@@ -56,7 +62,6 @@ export default function (server) {
   })
 
   server.post('/verbs', (req, res, next) => {
-    console.log(req.body)
     const newVerb = new Verb({
       infinitive: req.params.infinitive,
       language: req.params.language
