@@ -19,6 +19,7 @@ const verbSchema = new Schema(
   }
 )
 
+verbSchema.index({language: 1, infinitive: 1}, { unique: true })
 verbSchema.plugin(uniqueValidator)
 
 export default mongoose.model('Verb', verbSchema)
