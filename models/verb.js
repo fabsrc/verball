@@ -13,9 +13,6 @@ const verbSchema = new Schema(
       required: true
     },
     translations: [Schema.Types.ObjectId]
-  },
-  {
-    versionKey: false
   }
 )
 
