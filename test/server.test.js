@@ -2,7 +2,7 @@ import test from 'ava'
 import request from 'supertest'
 import server from '../server'
 
-test.cb('hello world', t => {
+test.cb('Server: is available', t => {
   request(server)
     .get('/')
     .end((err, res) => {
