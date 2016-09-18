@@ -6,8 +6,7 @@ test.cb('Server: is available', t => {
   request(server)
     .get('/')
     .end((err, res) => {
-      if (err) t.fail()
-
+      t.ifError(err)
       t.truthy(res.body)
       t.end()
     })
