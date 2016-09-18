@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
-const LanguageSchema = new Schema(
+const languageSchema = new Schema(
   {
     _id: {
       type: String,
@@ -27,6 +27,8 @@ const LanguageSchema = new Schema(
   }
 )
 
-LanguageSchema.plugin(uniqueValidator)
+languageSchema.virtual('code').get(function () { return this._id })
 
-export default mongoose.model('Language', LanguageSchema)
+languageSchema.plugin(uniqueValidator)
+
+export default mongoose.model('Language', languageSchema)

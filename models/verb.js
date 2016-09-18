@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
-const VerbSchema = new Schema(
+const verbSchema = new Schema(
   {
     language: {
       type: String,
@@ -19,6 +19,6 @@ const VerbSchema = new Schema(
   }
 )
 
-VerbSchema.plugin(uniqueValidator)
+verbSchema.plugin(uniqueValidator)
 
-export default mongoose.model('Verb', VerbSchema)
+export default mongoose.model('Verb', verbSchema)
