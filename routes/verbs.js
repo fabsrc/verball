@@ -80,8 +80,8 @@ export default function (server) {
 
       if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
 
-      verb.infinitive = req.params.infinitive
-      verb.language = req.params.language
+      verb.infinitive = req.params.infinitive.toLowerCase()
+      verb.language = req.params.language.toLowerCase()
 
       verb.save((err, newVerb) => {
         if (err) return next(err)

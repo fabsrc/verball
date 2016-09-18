@@ -40,8 +40,8 @@ export default function (server) {
 
       if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
 
-      language.name = req.params.name
-      language.nameEN = req.params.nameEN
+      language.name = req.params.name.toLowerCase()
+      language.nameEN = req.params.nameEN.toLowerCase()
 
       language.save((err, newLanguage) => {
         if (err) return next(err)

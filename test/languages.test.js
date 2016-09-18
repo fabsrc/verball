@@ -5,16 +5,16 @@ import Language from '../models/language'
 
 test.before.cb('Languages: seed database ', t => {
   Language.insertMany([
-    {_id: 'en', name: 'english', nameEN: 'english'},
-    {_id: 'es', name: 'español', nameEN: 'spanish'},
-    {_id: 'de', name: 'deutsch', nameEN: 'german'}
+    { _id: 'en', name: 'english', nameEN: 'english' },
+    { _id: 'es', name: 'español', nameEN: 'spanish' },
+    { _id: 'de', name: 'deutsch', nameEN: 'german' }
   ], (err) => {
     t.ifError(err)
     t.end()
   })
 })
 
-test.cb('Languages: read collection', t => {
+test.serial.cb('Languages: read collection', t => {
   request(server)
     .get('/languages')
     .end((err, res) => {
@@ -27,7 +27,7 @@ test.cb('Languages: read collection', t => {
     })
 })
 
-test.cb('Languages: read single', t => {
+test.serial.cb('Languages: read single', t => {
   request(server)
     .get('/languages/en')
     .end((err, res) => {

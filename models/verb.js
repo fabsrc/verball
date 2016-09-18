@@ -16,7 +16,7 @@ const verbSchema = new Schema(
   }
 )
 
-verbSchema.index({language: 1, infinitive: 1}, { unique: true })
+verbSchema.index({ language: 1, infinitive: 1 }, { unique: true })
 verbSchema.plugin(uniqueValidator)
 verbSchema.set('toJSON', {
   transform: (doc, ret, options) => {

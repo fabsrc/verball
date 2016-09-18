@@ -13,7 +13,7 @@ const server = restify.createServer({
 
 server.use(restifyPlugins.fullResponse())
 server.use(restifyPlugins.queryParser())
-server.use(restifyPlugins.bodyParser({mapParams: true}))
+server.use(restifyPlugins.bodyParser({ mapParams: true }))
 server.use(restifyPlugins.gzipResponse())
 
 Routes.Languages(server)
