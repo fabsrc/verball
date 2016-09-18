@@ -12,7 +12,7 @@ export default function (server) {
 
   server.post('/languages', (req, res, next) => {
     const newLanguage = new Language({
-      _id: req.params._id,
+      _id: req.params.code,
       name: req.params.name,
       nameEN: req.params.nameEN
     })

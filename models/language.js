@@ -21,10 +21,12 @@ const LanguageSchema = new Schema(
       required: true,
       lowercase: true
     }
+  },
+  {
+    versionKey: false
   }
 )
 
 LanguageSchema.plugin(uniqueValidator)
 
-const Language = mongoose.model('Language', LanguageSchema)
-export default Language
+export default mongoose.model('Language', LanguageSchema)

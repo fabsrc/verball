@@ -11,12 +11,13 @@ const server = restify.createServer({
   version: '0.0.1'
 })
 
-server.use(restifyPlugins.gzipResponse())
 server.use(restifyPlugins.fullResponse())
 server.use(restifyPlugins.queryParser())
-server.use(restifyPlugins.bodyParser())
+server.use(restifyPlugins.bodyParser({mapParams: true}))
+server.use(restifyPlugins.gzipResponse())
 
-Routes.Language(server)
+Routes.Languages(server)
+Routes.Verbs(server)
 
 if (!module.parent) {
   server.listen(process.env.PORT || 3000, () => {
