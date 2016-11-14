@@ -53,12 +53,16 @@ export default function (server) {
       Verb.findById(req.params.verb, (err, translationVerb) => {
         if (err) return next(err)
 
-        verb.translations.push(translationVerb._id)
-        verb.save((err, savedVeb) => {
-          if (err) return next(err)
+        verb.translations.indexOf(translationVerb._id) === -1 &&
+          verb.translations.push(translationVerb._id)
 
-          return res.send(verb)
-        })
+        translationVerb.translations.indexOf(verb._id) === -1 &&
+          translationVerb.translations.push(verb._id)
+
+        Promise
+          .all([verb.save(), translationVerb.save()])
+          .then(([verb, translationVerb]) => res.send(verb))
+          .catch(err => next(err))
       })
     })
   })
