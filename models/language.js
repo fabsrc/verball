@@ -26,12 +26,14 @@ const languageSchema = new Schema(
 
 languageSchema.plugin(uniqueValidator)
 languageSchema.virtual('code').get(function () { return this._id })
+languageSchema.virtual('url').get(function () { return `http://localhost:3000/languages/${this.code}` })
 languageSchema.set('toJSON', {
   transform: (doc, ret, options) => {
     ret.code = doc.code
     delete ret._id
     delete ret.__v
-  }
+  },
+  virtuals: true
 })
 
 export default mongoose.model('Language', languageSchema)

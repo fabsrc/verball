@@ -37,6 +37,7 @@ test.serial.cb('Languages: read single', t => {
       t.is(res.body.code, 'en')
       t.is(res.body.name, 'english')
       t.is(res.body.nameEN, 'english')
+      t.truthy(res.body.url)
       t.end()
     })
 })

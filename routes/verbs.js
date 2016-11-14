@@ -23,13 +23,15 @@ export default function (server) {
       query.populate(req.query.embed)
     }
 
-    query.exec((err, verb) => {
-      if (err) return next(err)
+    query
+      .populate('translations', 'infinitive')
+      .exec((err, verb) => {
+        if (err) return next(err)
 
-      if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
+        if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
 
-      return res.send(verb)
-    })
+        return res.send(verb)
+      })
   })
 
   server.get('/verbs/:id/translations', (req, res, next) => {

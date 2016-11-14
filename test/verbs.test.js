@@ -40,6 +40,7 @@ test.serial.cb('Verbs: read single', t => {
       t.is(res.body.infinitive, 'go')
       t.truthy(res.body.language)
       t.is(res.body.language.code, 'en')
+      t.truthy(res.body.url)
       t.end()
     })
 })
