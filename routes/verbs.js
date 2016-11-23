@@ -75,7 +75,6 @@ verbs.get('/:lang?', (req, res, next) => {
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3000/verbs/en/go
- * curl -i http://localhost:3000/verbs/en/swim
  *
  */
 
