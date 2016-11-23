@@ -147,7 +147,62 @@ verbs.get('/:id/translations', (req, res, next) => {
 })
 
 /**
- * @api {post} /verbs/:lang/:infinitive/translations/:translang/link Link Translations of two Verbs
+ * @api {post} /verbs/:lang/:infinitive/translations/:translang Create Translation of a Verb
+ * @apiName CreateVerbTranslation
+ * @apiGroup Verb
+ *
+ * @apiParam {String} lang The language code of the verb's languages
+ * @apiParam {String} infinitive The infinitive of the verb in the respective language
+ * @apiParam {String} translang The language code of the translated verb's language
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3000/verbs/en/go/translations/de/
+ *
+ */
+
+verbs.post('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
+  if (req.params.lang === req.params.translang) {
+    return next(new Error(`Language of verb to translate has to be different!`))
+  }
+
+  Verb.findByInfinitive(req.params.lang, req.params.infinitive).exec((err, verb) => {
+    if (err) return next(err)
+
+    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
+
+    Language.findById(req.body.language, (err, transLanguage) => {
+      if (err) return next(err)
+
+      if (!transLanguage) return next(new Error(`Language with the code ${req.params.transLanguage} not found!`))
+
+      Verb.findByInfinitive(req.body.language, req.body.infinitive, (err, transVerb) => {
+        if (err) return next(err)
+
+        if (transVerb) return next(new Error(`Verb '${req.body.infinitive}' [${req.params.translang}] already exists!`))
+
+        const translatedVerb = new Verb(req.body)
+
+        translatedVerb.save((err, newVerb) => {
+          if (err) return next(err)
+
+          verb.translations.indexOf(newVerb._id) === -1 &&
+            verb.translations.push(newVerb._id)
+
+          newVerb.translations.indexOf(verb._id) === -1 &&
+            newVerb.translations.push(verb._id)
+
+          Promise
+            .all([verb.save(), newVerb.save()])
+            .then(([verb, translationVerb]) => res.status(201).send(newVerb))
+            .catch(err => next(err))
+        })
+      })
+    })
+  })
+})
+
+/**
+ * @api {post} /verbs/:lang/:infinitive/translations/:translang Link Translations of two Verbs
  * @apiName LinkVerbTranslations
  * @apiGroup Verb
  *
@@ -156,11 +211,11 @@ verbs.get('/:id/translations', (req, res, next) => {
  * @apiParam {String} translang The language code of the translated verb's language
  *
  * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/en/go/translations/de/link
+ * curl -i http://localhost:3000/verbs/en/go/translations/de
  *
  */
 
-verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang/link', (req, res, next) => {
+verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, next) => {
   Verb.findByInfinitive(req.params.lang, req.params.infinitive).exec((err, verb) => {
     if (err) return next(err)
 
@@ -249,10 +304,7 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang/link', (req, re
  */
 
 verbs.post('/', (req, res, next) => {
-  const newVerb = new Verb({
-    infinitive: req.body.infinitive,
-    language: req.body.language
-  })
+  const newVerb = new Verb(req.body)
 
   newVerb.save((err, newVerb) => {
     if (err) return next(err)
