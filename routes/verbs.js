@@ -1,4 +1,3 @@
-import errors from 'restify-errors'
 import Verb from '../models/verb'
 import { Router } from 'express'
 
@@ -28,7 +27,7 @@ verbs.get('/findById/:id', (req, res, next) => {
     .exec((err, verb) => {
       if (err) return next(err)
 
-      if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
+      if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
       return res.send(verb)
     })
@@ -90,7 +89,7 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
     .exec((err, verb) => {
       if (err) return next(err)
 
-      if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
+      if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
       return res.send(verb)
     })
@@ -100,7 +99,7 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
 //   Verb.findById(req.params.id).populate('translations').exec((err, verb) => {
 //     if (err) return next(err)
 
-//     if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
+//     if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
 //     return res.send(verb.translations)
 //   })
@@ -110,7 +109,7 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
 //   Verb.findById(req.params.id).exec((err, verb) => {
 //     if (err) return next(err)
 
-//     if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
+//     if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
 //     // Verb.findById(req.body.id, (err, translationVerb) => {
 //     //   if (err) return next(err)
@@ -146,7 +145,7 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
 //   Verb.findById(req.params.id, (err, verb) => {
 //     if (err) return next(err)
 
-//     if (!verb) return next(new errors.NotFoundError(`Verb with id '${req.params.id}' not found!`))
+//     if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
 //     verb.infinitive = req.body.infinitive.toLowerCase()
 //     verb.language = req.body.language.toLowerCase()
@@ -163,7 +162,7 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
 //   Verb.findOneAndRemove({ _id: req.params.id }, (err, verb) => {
 //     if (err) return next(err)
 
-//     if (!verb) return next(new errors.NotFoundError(`Verb  with id '${req.params.id}' not found!`))
+//     if (!verb) return next(new Error(`Verb  with id '${req.params.id}' not found!`))
 
 //     return res.send(204)
 //   })

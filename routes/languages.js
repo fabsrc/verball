@@ -1,4 +1,3 @@
-import errors from 'restify-errors'
 import { Router } from 'express'
 import Language from '../models/language'
 
@@ -30,7 +29,7 @@ languages.get('/:code', (req, res, next) => {
   Language.findById(req.params.code.toLowerCase(), (err, language) => {
     if (err) return next(err)
 
-    if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
+    if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
     return res.send(language)
   })
@@ -40,7 +39,7 @@ languages.put('/:code', (req, res, next) => {
   Language.findById(req.params.code.toLowerCase(), (err, language) => {
     if (err) return next(err)
 
-    if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
+    if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
     language.name = req.params.name.toLowerCase()
     language.nameEN = req.params.nameEN.toLowerCase()
@@ -57,7 +56,7 @@ languages.delete('/:code', (req, res, next) => {
   Language.findOneAndRemove({ _id: req.params.code.toLowerCase() }, (err, language) => {
     if (err) return next(err)
 
-    if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
+    if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
     return res.send(204)
   })
