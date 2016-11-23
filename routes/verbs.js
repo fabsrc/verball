@@ -29,7 +29,7 @@ verbs.get('/:lang([a-z]{2})?', (req, res, next) => {
     query.infinitive = req.query.q
   }
 
-  Verb.find(query).sort('infinitive').exec((err, verbs) => {
+  Verb.find(query).select('-translations').sort('infinitive').exec((err, verbs) => {
     if (err) return next(err)
 
     return res.send(verbs)
@@ -142,7 +142,7 @@ verbs.get('/:id/translations', (req, res, next) => {
 
     if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
-    return res.send(verb)
+    return res.send(verb.translations)
   })
 })
 
