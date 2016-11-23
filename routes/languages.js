@@ -15,7 +15,7 @@ languages.post('/', (req, res, next) => {
   const newLanguage = new Language({
     _id: req.body.code,
     name: req.body.name,
-    nameEN: req.body.nameEN
+    nativeName: req.body.nativeName
   })
 
   newLanguage.save((err, newLanguage) => {

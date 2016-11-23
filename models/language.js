@@ -19,16 +19,16 @@ const languageSchema = new Schema(
     name: {
       type: String,
       required: true,
-      lowercase: true
-    },
-    nameEN: {
-      type: String,
-      required: true,
       lowercase: true,
       validate: validate({
         validator: 'isAlpha',
         message: 'Use a valid English language name (e.g. "english")'
       })
+    },
+    nativeName: {
+      type: String,
+      required: true,
+      lowercase: true
     }
   }
 )
