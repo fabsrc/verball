@@ -1,12 +1,2 @@
-import Languages from './languages'
-import Verbs from './verbs'
-
-export default function (server) {
-  Languages(server)
-  Verbs(server)
-}
-
-export {
-  Languages,
-  Verbs
-}
+export { default as languages } from './languages'
+export { default as verbs } from './verbs'

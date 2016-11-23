@@ -1,28 +1,37 @@
-import restify from 'restify'
+import express from 'express'
 import mongoose from 'mongoose'
-import restifyPlugins from 'restify-plugins'
-import routes from './routes'
-import { version } from './package.json'
+import bodyParser from 'body-parser'
+import compression from 'compression'
+import * as Routes from './routes'
 
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DB || 'mongodb://localhost/verball')
 
-const server = restify.createServer({
-  name: 'verball',
-  version: version
+const app = express()
+app.set('port', process.env.PORT || 3000)
+
+app.use(bodyParser.json())
+app.use(compression())
+
+app.use('/languages', Routes.languages)
+app.use('/verbs', Routes.verbs)
+
+app.use((err, req, res, next) => {
+  console.error(JSON.stringify(err))
+
+  if (err.name === 'ValidationError') {
+    return res.status(400).send({
+      name: err.name,
+      message: err.message,
+      error: err.errors
+    })
+  }
+
+  return res.status(500).end('Server Error!')
 })
 
-server.use(restifyPlugins.fullResponse())
-server.use(restifyPlugins.queryParser())
-server.use(restifyPlugins.bodyParser({ mapParams: true }))
-server.use(restifyPlugins.gzipResponse())
-
-routes(server)
-
 if (!module.parent) {
-  server.listen(process.env.PORT || 3000, () => {
-    console.log('%s listening at %s', server.name, server.url)
-  })
+  app.listen(app.get('port'), console.log('Verball listening at %s', app.get('port')))
 }
 
-export default server
+export default app

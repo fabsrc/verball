@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import validate from 'mongoose-validator'
 import uniqueValidator from 'mongoose-unique-validator'
 
 const languageSchema = new Schema(
@@ -6,30 +7,40 @@ const languageSchema = new Schema(
     _id: {
       type: String,
       index: true,
-      max: 2,
       required: true,
       unique: true,
-      lowercase: true
+      validate: validate({
+        validator: 'matches',
+        arguments: /^[a-z]{2}$/i,
+        message: 'Use a valid language code (e.g. "en")'
+      })
     },
     name: {
       type: String,
       required: true,
-      lowercase: true
+      lowercase: true,
+      validate: validate({
+        validator: 'isAlpha',
+        message: 'Use a valid language name (e.g. "english")'
+      })
     },
     nameEN: {
       type: String,
       required: true,
-      lowercase: true
+      lowercase: true,
+      validate: validate({
+        validator: 'isAlpha',
+        message: 'Use a valid English language name (e.g. "english")'
+      })
     }
   }
 )
 
 languageSchema.plugin(uniqueValidator)
 languageSchema.virtual('code').get(function () { return this._id })
-languageSchema.virtual('url').get(function () { return `http://localhost:3000/languages/${this.code}` })
+languageSchema.virtual('url').get(function () { return `/languages/${this.code}` })
 languageSchema.set('toJSON', {
   transform: (doc, ret, options) => {
-    ret.code = doc.code
     delete ret._id
     delete ret.__v
   },

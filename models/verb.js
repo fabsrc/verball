@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
+import idValidator from 'mongoose-id-validator'
 
 const verbSchema = new Schema(
   {
@@ -10,22 +11,26 @@ const verbSchema = new Schema(
     },
     infinitive: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     translations: [{ type: Schema.Types.ObjectId, ref: 'Verb' }]
   }
 )
 
-verbSchema.index({ language: 1, infinitive: 1 }, { unique: true })
+verbSchema.index({ infinitive: 1 }, { unique: true })
 verbSchema.plugin(uniqueValidator)
-verbSchema.virtual('url').get(function () { return `http://localhost:3000/verbs/${this.id}` })
+verbSchema.plugin(idValidator)
+verbSchema.virtual('url').get(function () { return `/verbs/${this.language.code}/${this.infinitive}` })
 verbSchema.set('toJSON', {
   transform: (doc, ret, options) => {
-    ret.id = ret._id
     delete ret._id
     delete ret.__v
   },
   virtuals: true
 })
+verbSchema.statics.findByInfinitive = function (infinitive, cb) {
+  return this.findOne({ infinitive }, cb)
+}
 
 export default mongoose.model('Verb', verbSchema)

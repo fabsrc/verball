@@ -1,63 +1,66 @@
 import errors from 'restify-errors'
+import { Router } from 'express'
 import Language from '../models/language'
 
-export default function (server) {
-  server.get('/languages', (req, res, next) => {
-    Language.find((err, languages) => {
-      if (err) return next(err)
+const languages = Router()
 
-      return res.send(languages)
-    })
+languages.get('/', (req, res, next) => {
+  Language.find((err, languages) => {
+    if (err) return next(err)
+
+    return res.send(languages)
+  })
+})
+
+languages.post('/', (req, res, next) => {
+  const newLanguage = new Language({
+    _id: req.body.code,
+    name: req.body.name,
+    nameEN: req.body.nameEN
   })
 
-  server.post('/languages', (req, res, next) => {
-    const newLanguage = new Language({
-      _id: req.params.code,
-      name: req.params.name,
-      nameEN: req.params.nameEN
-    })
+  newLanguage.save((err, newLanguage) => {
+    if (err) return next(err)
 
-    newLanguage.save((err, newLanguage) => {
+    return res.send(201, newLanguage)
+  })
+})
+
+languages.get('/:code', (req, res, next) => {
+  Language.findById(req.params.code.toLowerCase(), (err, language) => {
+    if (err) return next(err)
+
+    if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
+
+    return res.send(language)
+  })
+})
+
+languages.put('/:code', (req, res, next) => {
+  Language.findById(req.params.code.toLowerCase(), (err, language) => {
+    if (err) return next(err)
+
+    if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
+
+    language.name = req.params.name.toLowerCase()
+    language.nameEN = req.params.nameEN.toLowerCase()
+
+    language.save((err, newLanguage) => {
       if (err) return next(err)
 
-      return res.send(201, newLanguage)
+      return res.send(newLanguage)
     })
   })
+})
 
-  server.get('/languages/:code', (req, res, next) => {
-    Language.findById(req.params.code.toLowerCase(), (err, language) => {
-      if (err) return next(err)
+languages.delete('/:code', (req, res, next) => {
+  Language.findOneAndRemove({ _id: req.params.code.toLowerCase() }, (err, language) => {
+    if (err) return next(err)
 
-      if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
+    if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
 
-      return res.send(language)
-    })
+    return res.send(204)
   })
+})
 
-  server.put('/languages/:code', (req, res, next) => {
-    Language.findById(req.params.code.toLowerCase(), (err, language) => {
-      if (err) return next(err)
-
-      if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
-
-      language.name = req.params.name.toLowerCase()
-      language.nameEN = req.params.nameEN.toLowerCase()
-
-      language.save((err, newLanguage) => {
-        if (err) return next(err)
-
-        return res.send(newLanguage)
-      })
-    })
-  })
-
-  server.del('/languages/:code', (req, res, next) => {
-    Language.findOneAndRemove({ _id: req.params.code.toLowerCase() }, (err, language) => {
-      if (err) return next(err)
-
-      if (!language) return next(new errors.NotFoundError(`Language '${req.params.code.toLowerCase()}' not found!`))
-
-      return res.send(204)
-    })
-  })
-}
+export default languages
