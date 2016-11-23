@@ -21,7 +21,7 @@ const verbSchema = new Schema(
 verbSchema.index({ infinitive: 1 }, { unique: true })
 verbSchema.plugin(uniqueValidator)
 verbSchema.plugin(idValidator)
-verbSchema.virtual('url').get(function () { return `/verbs/${this.language.code}/${this.infinitive}` })
+verbSchema.virtual('url').get(function () { return `/verbs/${this.language.code || this.language}/${this.infinitive}` })
 verbSchema.set('toJSON', {
   transform: (doc, ret, options) => {
     delete ret._id
@@ -29,8 +29,8 @@ verbSchema.set('toJSON', {
   },
   virtuals: true
 })
-verbSchema.statics.findByInfinitive = function (infinitive, cb) {
-  return this.findOne({ infinitive }, cb)
+verbSchema.statics.findByInfinitive = function (language, infinitive, cb) {
+  return this.findOne({ language, infinitive }, cb)
 }
 
 export default mongoose.model('Verb', verbSchema)

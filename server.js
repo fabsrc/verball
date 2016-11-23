@@ -27,7 +27,11 @@ app.use((err, req, res, next) => {
     })
   }
 
-  return res.status(500).end('Server Error!')
+  return res.status(500).send({
+    name: err.name,
+    message: err.message,
+    error: err.errors
+  })
 })
 
 if (!module.parent) {

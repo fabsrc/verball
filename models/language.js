@@ -9,20 +9,17 @@ const languageSchema = new Schema(
       index: true,
       required: true,
       unique: true,
+      lowercase: true,
       validate: validate({
         validator: 'matches',
         arguments: /^[a-z]{2}$/i,
-        message: 'Use a valid language code (e.g. "en")'
+        message: 'Use a valid ISO 639-1 language code (e.g. "en")'
       })
     },
     name: {
       type: String,
       required: true,
-      lowercase: true,
-      validate: validate({
-        validator: 'isAlpha',
-        message: 'Use a valid language name (e.g. "english")'
-      })
+      lowercase: true
     },
     nameEN: {
       type: String,

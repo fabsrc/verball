@@ -4,7 +4,7 @@ import Language from '../models/language'
 const languages = Router()
 
 languages.get('/', (req, res, next) => {
-  Language.find((err, languages) => {
+  Language.find().sort().exec((err, languages) => {
     if (err) return next(err)
 
     return res.send(languages)
@@ -41,8 +41,8 @@ languages.put('/:code', (req, res, next) => {
 
     if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
-    language.name = req.params.name.toLowerCase()
-    language.nameEN = req.params.nameEN.toLowerCase()
+    language.name = req.body.name.toLowerCase()
+    language.nameEN = req.body.nameEN.toLowerCase()
 
     language.save((err, newLanguage) => {
       if (err) return next(err)
