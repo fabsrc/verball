@@ -1,4 +1,5 @@
 import Verb from '../models/verb'
+import Language from '../models/language'
 import { Types } from 'mongoose'
 import { Router } from 'express'
 
@@ -59,7 +60,7 @@ verbs.get('/:id', (req, res, next) => {
   }
 
   query
-    .populate('translations', 'infinitive')
+    .populate('translations', '-translations')
     .exec((err, verb) => {
       if (err) return next(err)
 
@@ -82,7 +83,7 @@ verbs.get('/:id', (req, res, next) => {
  *
  */
 
-verbs.get('/:lang/:infinitive', (req, res, next) => {
+verbs.get('/:lang([a-z]{2})/:infinitive', (req, res, next) => {
   let query = Verb.findByInfinitive(req.params.lang, req.params.infinitive)
 
   if (req.query.embed) {
@@ -90,7 +91,7 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
   }
 
   query
-    .populate('translations', 'infinitive')
+    .populate('translations', 'infinitive language')
     .exec((err, verb) => {
       if (err) return next(err)
 
@@ -100,15 +101,116 @@ verbs.get('/:lang/:infinitive', (req, res, next) => {
     })
 })
 
-// verbs.get('/:id/translations', (req, res, next) => {
-//   Verb.findById(req.params.id).populate('translations').exec((err, verb) => {
-//     if (err) return next(err)
+/**
+ * @api {get} /verbs/:lang/:infinitive/translations Translations of a Verb
+ * @apiName VerbTranslations
+ * @apiGroup Verb
+ *
+ * @apiParam {String} lang The language code of the verb's languages
+ * @apiParam {String} infinitive The infinitive of the verb in the respective language
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3000/verbs/en/go/translations
+ *
+ */
 
-//     if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
+verbs.get('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
+  Verb.findOne({ language: req.params.lang, infinitive: req.params.infinitive }).populate('translations', '-translations').exec((err, verb) => {
+    if (err) return next(err)
 
-//     return res.send(verb.translations)
-//   })
-// })
+    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
+
+    return res.send(verb.translations)
+  })
+})
+
+/**
+ * @api {get} /verbs/:id/translations Translations of a Verb by Id
+ * @apiName VerbTranslationsById
+ * @apiGroup Verb
+ *
+ * @apiParam {String} lang The id of the verb
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3000/verbs/5835a799c00d0239f11083d4/translations
+ *
+ */
+
+verbs.get('/:id/translations', (req, res, next) => {
+  Verb.findById(req.params.id).populate('translations', '-translations').exec((err, verb) => {
+    if (err) return next(err)
+
+    if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
+
+    return res.send(verb)
+  })
+})
+
+/**
+ * @api {post} /verbs/:lang/:infinitive/translations/:translang/link Link Translations of two Verbs
+ * @apiName LinkVerbTranslations
+ * @apiGroup Verb
+ *
+ * @apiParam {String} lang The language code of the verb's languages
+ * @apiParam {String} infinitive The infinitive of the verb in the respective language
+ * @apiParam {String} translang The language code of the translated verb's language
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3000/verbs/en/go/translations/de/link
+ *
+ */
+
+verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang/link', (req, res, next) => {
+  Verb.findByInfinitive(req.params.lang, req.params.infinitive).exec((err, verb) => {
+    if (err) return next(err)
+
+    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
+
+    Language.findById(req.params.translang, (err, transLanguage) => {
+      if (err) return next(err)
+
+      if (!transLanguage) return next(new Error(`Language with the code ${req.params.transLanguage} not found!`))
+
+      if (req.body.id && Types.ObjectId.isValid(req.body.id)) {
+        Verb.findById(req.body.id, (err, transVerb) => {
+          if (err) return next(err)
+
+          if (!transVerb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
+
+          verb.translations.indexOf(transVerb._id) === -1 &&
+            verb.translations.push(transVerb._id)
+
+          transVerb.translations.indexOf(verb._id) === -1 &&
+            transVerb.translations.push(verb._id)
+
+          Promise
+            .all([verb.save(), transVerb.save()])
+            .then(([verb, translationVerb]) => res.send(verb))
+            .catch(err => next(err))
+        })
+      } else if (req.body.infinitive) {
+        Verb.findByInfinitive(req.params.translang, req.body.infinitive, (err, transVerb) => {
+          if (err) return next(err)
+
+          if (!transVerb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
+
+          verb.translations.indexOf(transVerb._id) === -1 &&
+            verb.translations.push(transVerb._id)
+
+          transVerb.translations.indexOf(verb._id) === -1 &&
+            transVerb.translations.push(verb._id)
+
+          Promise
+            .all([verb.save(), transVerb.save()])
+            .then(([verb, translationVerb]) => res.send(verb))
+            .catch(err => next(err))
+        })
+      } else {
+        return next(new Error(`No valid parameters. Use \`id\` or \`infinitive\` to link verbs.`))
+      }
+    })
+  })
+})
 
 // verbs.post('/:id/translations', (req, res, next) => {
 //   Verb.findById(req.params.id).exec((err, verb) => {
@@ -175,7 +277,7 @@ verbs.put('/:id', (req, res, next) => {
   Verb.findById(req.params.id, (err, verb) => {
     if (err) return next(err)
 
-    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
+    if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
     verb.infinitive = req.body.infinitive.toLowerCase()
     verb.language = req.body.language.toLowerCase()
@@ -201,7 +303,7 @@ verbs.put('/:id', (req, res, next) => {
  *
  */
 
-verbs.put('/:lang/:infinitive', (req, res, next) => {
+verbs.put('/:lang([a-z]{2})/:infinitive', (req, res, next) => {
   Verb.findByInfinitive(req.params.lang, req.params.infinitive, (err, verb) => {
     if (err) return next(err)
 
@@ -238,7 +340,7 @@ verbs.delete('/:id', (req, res, next) => {
   Verb.findOneAndRemove({ _id: req.params.id }, (err, verb) => {
     if (err) return next(err)
 
-    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
+    if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
     return res.sendStatus(204)
   })
@@ -257,7 +359,7 @@ verbs.delete('/:id', (req, res, next) => {
  *
  */
 
-verbs.delete('/:lang/:infinitive', (req, res, next) => {
+verbs.delete('/:lang([a-z]{2})/:infinitive', (req, res, next) => {
   Verb.findOneAndRemove({ language: req.params.lang, infinitive: req.params.infinitive }, (err, verb) => {
     if (err) return next(err)
 
