@@ -1,8 +1,11 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+import { json } from 'body-parser'
 import compression from 'compression'
+import graffiti from '@risingstack/graffiti'
+import { getSchema } from '@risingstack/graffiti-mongoose'
 import * as Routes from './routes'
+import * as Models from './models'
 
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DB || 'mongodb://localhost/verball')
@@ -10,11 +13,15 @@ mongoose.connect(process.env.DB || 'mongodb://localhost/verball')
 const app = express()
 app.set('port', process.env.PORT || 3000)
 
-app.use(bodyParser.json())
+app.use(json())
 app.use(compression())
 
 app.use('/languages', Routes.languages)
 app.use('/verbs', Routes.verbs)
+
+app.use(graffiti.express({
+  schema: getSchema(Object.values(Models))
+}))
 
 app.use((err, req, res, next) => {
   console.error(JSON.stringify(err))

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import Language from '../models/language'
+import Language from '../models/Language'
 
 const languages = Router()
 
