@@ -78,6 +78,57 @@ const QueryType = new GraphQLObjectType({
   }
 })
 
+const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  description: '...',
+  fields: () => ({
+    createVerb: {
+      type: VerbType,
+      args: {
+        verb: { type: VerbInputType }
+      },
+      resolve: (root, args) => {
+        let v = new Verb(args.verb)
+        return v.save()
+      }
+    },
+    linkVerbTranslations: {
+      type: new GraphQLList(VerbType),
+      args: {
+        verb: { type: VerbInputType },
+        transVerb: { type: VerbInputType }
+      },
+      resolve: (root, args) => {
+        return Promise.all([
+          Verb.findByInfinitive(args.verb.language, args.verb.infinitive).exec(),
+          Verb.findByInfinitive(args.transVerb.language, args.transVerb.infinitive).exec()
+        ]).then(([verb, transVerb]) => {
+          verb.translations.push(transVerb.id)
+          transVerb.translations.push(verb.id)
+          return Promise.all([verb.save(), transVerb.save()])
+        })
+      }
+    },
+    deleteVerb: {
+      type: VerbType,
+      args: {
+        id: { type: GraphQLString },
+        verb: {
+          type: VerbInputType
+        }
+      },
+      resolve: (root, args) => {
+        if (args.id) {
+          return Verb.findByIdAndRemove(args.id).exec()
+        } else {
+          return Verb.findOneAndRemove({ language: args.verb.language, infinitive: args.verb.infinitive }).exec()
+        }
+      }
+    }
+  })
+})
+
 export default new GraphQLSchema({
-  query: QueryType
+  query: QueryType,
+  mutation: MutationType
 })
