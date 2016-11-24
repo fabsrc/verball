@@ -2,10 +2,9 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { json } from 'body-parser'
 import compression from 'compression'
-import graffiti from '@risingstack/graffiti'
-import { getSchema } from '@risingstack/graffiti-mongoose'
+import graphqlHTTP from 'express-graphql'
 import * as Routes from './routes'
-import * as Models from './models'
+import schema from './models/graphQLSchema'
 
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DB || 'mongodb://localhost/verball')
@@ -19,8 +18,9 @@ app.use(compression())
 app.use('/languages', Routes.languages)
 app.use('/verbs', Routes.verbs)
 
-app.use(graffiti.express({
-  schema: getSchema(Object.values(Models))
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true
 }))
 
 app.use((err, req, res, next) => {

@@ -22,13 +22,7 @@ verbSchema.index({ infinitive: 1 }, { unique: true })
 verbSchema.plugin(uniqueValidator)
 verbSchema.plugin(idValidator)
 verbSchema.virtual('url').get(function () {
-  console.log(this)
-
-  if (this.language) {
-    return `/verbs/${this.language.code || this.language}/${this.infinitive}`
-  } else {
-    return null
-  }
+  return this.language ? `/verbs/${this.language.code || this.language}/${this.infinitive}` : null
 })
 verbSchema.set('toJSON', {
   transform: (doc, ret, options) => {
