@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 import idValidator from 'mongoose-id-validator'
 
@@ -21,9 +21,11 @@ const verbSchema = new Schema(
 verbSchema.index({ infinitive: 1 }, { unique: true })
 verbSchema.plugin(uniqueValidator)
 verbSchema.plugin(idValidator)
+
 verbSchema.virtual('url').get(function () {
   return this.language ? `/verbs/${this.language.code || this.language}/${this.infinitive}` : null
 })
+
 verbSchema.set('toJSON', {
   transform: (doc, ret, options) => {
     delete ret._id
@@ -31,6 +33,14 @@ verbSchema.set('toJSON', {
   },
   virtuals: true
 })
+
+verbSchema.post('findOneAndRemove', function (doc) {
+  this.model.update(
+    { translations: Types.ObjectId(doc.id) },
+    { $pull: { translations: Types.ObjectId(doc.id) } }
+  ).exec()
+})
+
 verbSchema.statics.findByInfinitive = function (language, infinitive, cb) {
   return this.findOne({ language, infinitive }, cb)
 }
