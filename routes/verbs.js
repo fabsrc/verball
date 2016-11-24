@@ -185,11 +185,8 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
         translatedVerb.save((err, newVerb) => {
           if (err) return next(err)
 
-          verb.translations.indexOf(newVerb._id) === -1 &&
-            verb.translations.push(newVerb._id)
-
-          newVerb.translations.indexOf(verb._id) === -1 &&
-            newVerb.translations.push(verb._id)
+          verb.translations.push(newVerb._id)
+          newVerb.translations.push(verb._id)
 
           Promise
             .all([verb.save(), newVerb.save()])
@@ -232,15 +229,12 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, ne
 
           if (!transVerb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
-          verb.translations.indexOf(transVerb._id) === -1 &&
-            verb.translations.push(transVerb._id)
-
-          transVerb.translations.indexOf(verb._id) === -1 &&
-            transVerb.translations.push(verb._id)
+          verb.translations.push(transVerb._id)
+          transVerb.translations.push(verb._id)
 
           Promise
             .all([verb.save(), transVerb.save()])
-            .then(([verb, translationVerb]) => res.send(verb))
+            .then(([verb, translationVerb]) => res.send([verb, translationVerb]))
             .catch(err => next(err))
         })
       } else if (req.body.infinitive) {
@@ -249,15 +243,12 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, ne
 
           if (!transVerb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
 
-          verb.translations.indexOf(transVerb._id) === -1 &&
-            verb.translations.push(transVerb._id)
-
-          transVerb.translations.indexOf(verb._id) === -1 &&
-            transVerb.translations.push(verb._id)
+          verb.translations.push(transVerb._id)
+          transVerb.translations.push(verb._id)
 
           Promise
             .all([verb.save(), transVerb.save()])
-            .then(([verb, translationVerb]) => res.send(verb))
+            .then(([verb, translationVerb]) => res.send([verb, translationVerb]))
             .catch(err => next(err))
         })
       } else {
