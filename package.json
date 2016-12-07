@@ -1,6 +1,6 @@
 {
   "name": "verball",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "API for verbs from different languages.",
   "main": "server.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "express": "^4.14.0",
-    "mongoose": "^4.6.8",
+    "mongoose": "^4.7.1",
     "mongoose-id-validator": "^0.4.0",
     "mongoose-unique-validator": "^1.0.3",
     "mongoose-validator": "^1.2.5"
@@ -55,5 +55,10 @@
       "babel-register"
     ],
     "babel": "inherit"
+  },
+  "apidoc": {
+    "title": "Verball API Documentation",
+    "version": "0.1.0",
+    "url" : "http://localhost:3000/"
   }
 }

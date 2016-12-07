@@ -3,6 +3,22 @@ import { Language } from '../models'
 
 const languages = Router()
 
+/**
+ * @api {get} /languages/ Get all languages
+ * @apiName Languages
+ * @apiGroup Language
+ *
+ *
+ * @apiExample Example usage:
+ * curl -i http://localhost:3000/languages
+ *
+ * @apiSuccess {Object[]} languages        List of languages.
+ * @apiSuccess {String}   languages.code   Langauge code.
+ * @apiSuccess {String}   languages.name   English name of language.
+ * @apiSuccess {String}   languages.nativeName   Native name of language.
+ *
+ */
+
 languages.get('/', (req, res, next) => {
   Language.find().sort().exec((err, languages) => {
     if (err) return next(err)
