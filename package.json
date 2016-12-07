@@ -27,6 +27,7 @@
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "express": "^4.14.0",
+    "helmet": "^3.1.0",
     "mongoose": "^4.7.1",
     "mongoose-id-validator": "^0.4.0",
     "mongoose-unique-validator": "^1.0.3",
@@ -59,6 +60,6 @@
   "apidoc": {
     "title": "Verball API Documentation",
     "version": "0.1.0",
-    "url" : "http://localhost:3000/"
+    "url": "http://localhost:3000/"
   }
 }

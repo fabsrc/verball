@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import { json } from 'body-parser'
+import helmet from 'helmet'
 import compression from 'compression'
 import graphqlHTTP from 'express-graphql'
 import * as Routes from './routes'
@@ -12,6 +13,7 @@ mongoose.connect(process.env.DB || 'mongodb://localhost/verball')
 const app = express()
 app.set('port', process.env.PORT || 3000)
 
+app.use(helmet())
 app.use(json())
 app.use(compression())
 
