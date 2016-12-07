@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import Language from '../models/Language'
+import { Language } from '../models'
 
 const languages = Router()
 
@@ -21,7 +21,7 @@ languages.post('/', (req, res, next) => {
   newLanguage.save((err, newLanguage) => {
     if (err) return next(err)
 
-    return res.send(201, newLanguage)
+    return res.status(201).send(newLanguage)
   })
 })
 
@@ -41,8 +41,8 @@ languages.put('/:code', (req, res, next) => {
 
     if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
-    language.name = req.body.name.toLowerCase()
-    language.nameEN = req.body.nameEN.toLowerCase()
+    language.name = req.body.name && req.body.name.toLowerCase()
+    language.nativeName = req.body.nativeName && req.body.nativeName.toLowerCase()
 
     language.save((err, newLanguage) => {
       if (err) return next(err)
@@ -58,7 +58,7 @@ languages.delete('/:code', (req, res, next) => {
 
     if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
-    return res.send(204)
+    return res.sendStatus(204)
   })
 })
 

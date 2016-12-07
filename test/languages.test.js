@@ -1,17 +1,17 @@
 import test from 'ava'
 import request from 'supertest'
 import server from '../server'
-import Language from '../models/language'
+import { Language } from '../models'
 
 test.before.cb('Languages: seed database ', t => {
-  Language.insertMany([
-    { _id: 'en', name: 'english', nameEN: 'english' },
-    { _id: 'es', name: 'español', nameEN: 'spanish' },
-    { _id: 'de', name: 'deutsch', nameEN: 'german' }
-  ], (err) => {
-    t.ifError(err)
-    t.end()
-  })
+  Language.remove()
+    .then(() => Language.insertMany([
+      { _id: 'en', nativeName: 'English', name: 'english' },
+      { _id: 'es', nativeName: 'Español', name: 'spanish' },
+      { _id: 'de', nativeName: 'Deutsch', name: 'german' }
+    ]))
+    .catch(err => t.ifError(err))
+    .then(() => t.end())
 })
 
 test.serial.cb('Languages: read collection', t => {
@@ -22,7 +22,7 @@ test.serial.cb('Languages: read collection', t => {
       t.is(res.status, 200)
       t.truthy(res.body)
       t.is(res.body.length, 3)
-      t.true(res.body.every(l => l.code && l.name && l.nameEN))
+      t.true(res.body.every(l => l.code && l.name && l.nativeName))
       t.end()
     })
 })
@@ -36,7 +36,7 @@ test.serial.cb('Languages: read single', t => {
       t.truthy(res.body)
       t.is(res.body.code, 'en')
       t.is(res.body.name, 'english')
-      t.is(res.body.nameEN, 'english')
+      t.is(res.body.nativeName, 'english')
       t.truthy(res.body.url)
       t.end()
     })
@@ -45,15 +45,15 @@ test.serial.cb('Languages: read single', t => {
 test.serial.cb('Language: create', t => {
   request(server)
     .post('/languages/')
-    .send({ code: 'fr', name: 'Français', nameEN: 'french' })
+    .send({ code: 'fr', name: 'french', nativeName: 'Français' })
     .set('Accept', 'application/json')
     .end((err, res) => {
       t.ifError(err)
       t.is(res.status, 201)
       t.truthy(res.body)
       t.is(res.body.code, 'fr')
-      t.is(res.body.name, 'français')
-      t.is(res.body.nameEN, 'french')
+      t.is(res.body.name, 'french')
+      t.is(res.body.nativeName, 'français')
 
       Language.count((err, count) => {
         t.ifError(err)
@@ -66,17 +66,17 @@ test.serial.cb('Language: create', t => {
 test.serial.cb('Language: update', t => {
   request(server)
     .put('/languages/fr')
-    .send({ name: 'frank', nameEN: 'Frank' })
+    .send({ name: 'frank', nativeName: 'Frank' })
     .end((err, res) => {
       t.ifError(err)
       t.is(res.status, 200)
       t.is(res.body.name, 'frank')
-      t.is(res.body.nameEN, 'frank')
+      t.is(res.body.nativeName, 'frank')
 
       Language.findById('fr', (err, language) => {
         t.ifError(err)
         t.is(language.name, 'frank')
-        t.is(language.nameEN, 'frank')
+        t.is(language.nativeName, 'frank')
         t.end()
       })
     })
@@ -98,7 +98,5 @@ test.serial.cb('Language: delete', t => {
 })
 
 test.after.always('Languages: cleanup database', t => {
-  Language.remove({}, (err) => {
-    t.ifError(err)
-  })
+  Language.remove({}, (err) => { t.ifError(err) })
 })

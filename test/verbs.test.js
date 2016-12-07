@@ -1,20 +1,22 @@
 import test from 'ava'
 import request from 'supertest'
 import server from '../server'
-import Verb from '../models/verb'
+import { Verb } from '../models'
 
 let verbs
 
 test.before.cb('Verbs: seed database ', t => {
-  Verb.insertMany([
-    { infinitive: 'go', language: 'en' },
-    { infinitive: 'walk', language: 'en' },
-    { infinitive: 'swim', language: 'en' }
-  ], (err, createdVerbs) => {
-    verbs = createdVerbs
-    t.ifError(err)
-    t.end()
-  })
+  Verb.remove({})
+    .then(() => Verb.insertMany([
+      { infinitive: 'go', language: 'en' },
+      { infinitive: 'walk', language: 'en' },
+      { infinitive: 'swim', language: 'en' }
+    ]))
+    .catch(err => t.ifError(err))
+    .then(createdVerbs => {
+      verbs = createdVerbs
+      t.end()
+    })
 })
 
 test.serial.cb('Verbs: read collection', t => {
@@ -101,7 +103,5 @@ test.serial.cb('Verbs: delete', t => {
 })
 
 test.after.always('Verbs: cleanup database', t => {
-  Verb.remove({}, (err) => {
-    t.ifError(err)
-  })
+  Verb.remove({}, err => t.ifError(err))
 })

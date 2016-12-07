@@ -1,5 +1,4 @@
-import Verb from '../models/Verb'
-import Language from '../models/Language'
+import { Language, Verb } from '../models'
 import { Types } from 'mongoose'
 import { Router } from 'express'
 
