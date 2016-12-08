@@ -5,11 +5,11 @@ import { Router } from 'express'
 const verbs = Router()
 
 /**
- * @api {get} /verbs/:lang([a-z]{2})? All verbs (of one language)
+ * @api {get} /verbs/:languageCode All verbs (of one language)
  * @apiName Verbs
  * @apiGroup Verb
  *
- * @apiParam {String} [lang] The language code to get verbs from
+ * @apiParam {String} [languageCode] The language code to get verbs for
  *
  * @apiExample Example usage:
  * curl -i http://localhost:3000/verbs
@@ -256,29 +256,6 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, ne
     })
   })
 })
-
-// verbs.post('/:id/translations', (req, res, next) => {
-//   Verb.findById(req.params.id).exec((err, verb) => {
-//     if (err) return next(err)
-
-//     if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
-
-//     // Verb.findById(req.body.id, (err, translationVerb) => {
-//     //   if (err) return next(err)
-
-//     //   verb.translations.indexOf(translationVerb._id) === -1 &&
-//     //     verb.translations.push(translationVerb._id)
-
-//     //   translationVerb.translations.indexOf(verb._id) === -1 &&
-//     //     translationVerb.translations.push(verb._id)
-
-//     //   Promise
-//     //     .all([verb.save(), translationVerb.save()])
-//     //     .then(([verb, translationVerb]) => res.send(verb))
-//     //     .catch(err => next(err))
-//     // })
-//   })
-// })
 
 /**
  * @api {post} /verbs/ Create Verb
