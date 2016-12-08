@@ -16,6 +16,8 @@ verbs.param('lang', (req, res, next, code) => {
   })
 })
 
+verbs.param('translang', verbs.params.lang[0])
+
 /**
  * @api {get} /verbs/:languageCode All verbs (of one language)
  * @apiName Verbs
@@ -172,41 +174,31 @@ verbs.get('/:id/translations', (req, res, next) => {
  */
 
 verbs.post('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
-  if (req.params.lang === req.params.translang) {
+  if (req.params.lang === req.body.language) {
     return next(new Error(`Language of verb to translate has to be different!`))
   }
 
-  Verb.findByInfinitive(req.params.lang, req.params.infinitive).exec((err, verb) => {
-    if (err) return next(err)
+  Verb.findByInfinitive(req.params.lang, req.params.infinitive)
+    .then(verb => {
+      if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
 
-    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
-
-    Language.findById(req.body.language, (err, transLanguage) => {
-      if (err) return next(err)
-
-      if (!transLanguage) return next(new Error(`Language with the code ${req.params.transLanguage} not found!`))
-
-      Verb.findByInfinitive(req.body.language, req.body.infinitive, (err, transVerb) => {
-        if (err) return next(err)
-
-        if (transVerb) return next(new Error(`Verb '${req.body.infinitive}' [${req.params.translang}] already exists!`))
-
-        const translatedVerb = new Verb(req.body)
-
-        translatedVerb.save((err, newVerb) => {
-          if (err) return next(err)
-
-          verb.translations.push(newVerb._id)
-          newVerb.translations.push(verb._id)
-
-          Promise
-            .all([verb.save(), newVerb.save()])
-            .then(([verb, translationVerb]) => res.status(201).send(newVerb))
-            .catch(err => next(err))
-        })
-      })
+      return Promise.all([verb, Verb.findByInfinitive(req.body.language, req.body.infinitive)])
     })
-  })
+    .then(([verb, transVerb]) => {
+      if (transVerb) return next(new Error(`Verb '${req.body.infinitive}' [${req.body.language}] already exists!`))
+
+      let translatedVerb = new Verb(req.body)
+
+      return Promise.all([verb, translatedVerb.save()])
+    })
+    .then(([verb, translatedVerb]) => {
+      verb.translations.push(translatedVerb._id)
+      translatedVerb.translations.push(verb._id)
+
+      return Promise.all([verb.save(), translatedVerb.save()])
+    })
+    .then(verbs => res.status(201).send(verbs))
+    .catch(err => next(err))
 })
 
 /**
@@ -223,50 +215,26 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
  *
  */
 
-verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, next) => {
-  Verb.findByInfinitive(req.params.lang, req.params.infinitive).exec((err, verb) => {
-    if (err) return next(err)
+verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang([a-z]{2})', (req, res, next) => {
+  let translationVerbCriteria
 
-    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
+  if (req.body.id && Types.ObjectId.isValid(req.body.id)) {
+    translationVerbCriteria = { _id: req.body.id }
+  } else if (req.body.infinitive) {
+    translationVerbCriteria = { language: req.params.translang, infinitive: req.body.infinitive }
+  } else {
+    return next(new Error(`No valid body parameters. Use \`id\` or \`infinitive\` to link translations of verbs.`))
+  }
 
-    Language.findById(req.params.translang, (err, transLanguage) => {
+  Verb.linkTranslations(
+    { language: req.params.lang, infinitive: req.params.infinitive },
+    translationVerbCriteria,
+    (err, linkedVerbs) => {
       if (err) return next(err)
 
-      if (!transLanguage) return next(new Error(`Language with the code ${req.params.transLanguage} not found!`))
-
-      if (req.body.id && Types.ObjectId.isValid(req.body.id)) {
-        Verb.findById(req.body.id, (err, transVerb) => {
-          if (err) return next(err)
-
-          if (!transVerb) return next(new Error(`Verb with id '${req.body.id}' not found!`))
-
-          verb.translations.push(transVerb._id)
-          transVerb.translations.push(verb._id)
-
-          Promise
-            .all([verb.save(), transVerb.save()])
-            .then(([verb, translationVerb]) => res.send([verb, translationVerb]))
-            .catch(err => next(err))
-        })
-      } else if (req.body.infinitive) {
-        Verb.findByInfinitive(req.params.translang, req.body.infinitive, (err, transVerb) => {
-          if (err) return next(err)
-
-          if (!transVerb) return next(new Error(`Verb with infinitive '${req.body.infinitive}' not found!`))
-
-          verb.translations.push(transVerb._id)
-          transVerb.translations.push(verb._id)
-
-          Promise
-            .all([verb.save(), transVerb.save()])
-            .then(([verb, translationVerb]) => res.send([verb, translationVerb]))
-            .catch(err => next(err))
-        })
-      } else {
-        return next(new Error(`No valid parameters. Use \`id\` or \`infinitive\` to link verbs.`))
-      }
-    })
-  })
+      res.send(linkedVerbs)
+    }
+  )
 })
 
 /**

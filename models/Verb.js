@@ -41,6 +41,24 @@ verbSchema.post('findOneAndRemove', function (doc) {
   ).exec()
 })
 
+verbSchema.statics.linkTranslations = function (verbOneCriteria, verbTwoCriteria, cb) {
+  Promise.all([
+    this.findOne(verbOneCriteria),
+    this.findOne(verbTwoCriteria)
+  ]).then(([verbOne, verbTwo]) => {
+    if (!verbOne || !verbTwo) {
+      return cb(new Error(`Verb with criteria ${JSON.stringify(verbOne ? verbTwoCriteria : verbOneCriteria)} not found!`))
+    }
+
+    verbOne.translations.push(verbTwo._id)
+    verbTwo.translations.push(verbOne._id)
+
+    return Promise.all([verbOne.save(), verbTwo.save()])
+  })
+  .then(([verb, translationVerb]) => cb(null, [verb, translationVerb]))
+  .catch(err => cb(err))
+}
+
 verbSchema.statics.findByInfinitive = function (language, infinitive, cb) {
   return this.findOne({ language, infinitive }, cb)
 }
