@@ -29,6 +29,16 @@ const languageSchema = new Schema(
       type: String,
       required: true,
       lowercase: true
+    },
+    pronouns: {
+      '1s': String,
+      '1p': String,
+      '2s': String,
+      '2p': String,
+      '3ms': String,
+      '3fs': String,
+      '3ns': String,
+      'form': String
     }
   }
 )

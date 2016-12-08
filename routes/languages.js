@@ -1,3 +1,4 @@
+import flatten from 'flat'
 import { Router } from 'express'
 import { Language } from '../models'
 
@@ -54,13 +55,9 @@ languages.get('/', (req, res, next) => {
  */
 
 languages.post('/', (req, res, next) => {
-  const newLanguage = new Language({
-    _id: req.body.code,
-    name: req.body.name,
-    nativeName: req.body.nativeName
-  })
+  req.body._id = req.body.code
 
-  newLanguage.save((err, newLanguage) => {
+  Language.create(req.body, (err, newLanguage) => {
     if (err) return next(err)
 
     return res.status(201).send(newLanguage)
@@ -121,20 +118,19 @@ languages.get('/:code', (req, res, next) => {
  */
 
 languages.put('/:code', (req, res, next) => {
-  Language.findById(req.params.code.toLowerCase(), (err, language) => {
-    if (err) return next(err)
+  let updateParams = flatten(new Language(req.body).toObject())
 
-    if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
-
-    language.name = req.body.name && req.body.name.toLowerCase()
-    language.nativeName = req.body.nativeName && req.body.nativeName.toLowerCase()
-
-    language.save((err, newLanguage) => {
+  Language.findByIdAndUpdate(req.params.code,
+    { $set: updateParams },
+    { new: true, runValidators: true },
+    (err, language) => {
       if (err) return next(err)
 
-      return res.send(newLanguage)
-    })
-  })
+      if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
+
+      return res.send(language)
+    }
+  )
 })
 
 /**
