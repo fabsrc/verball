@@ -4,6 +4,18 @@ import { Router } from 'express'
 
 const verbs = Router()
 
+verbs.param('lang', (req, res, next, code) => {
+  Language.findById(code, (err, language) => {
+    if (err) {
+      return next(err)
+    } else if (language) {
+      return next()
+    } else {
+      return next(new Error(`Language with code ${code} not found.`))
+    }
+  })
+})
+
 /**
  * @api {get} /verbs/:languageCode All verbs (of one language)
  * @apiName Verbs
@@ -226,7 +238,7 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, ne
         Verb.findById(req.body.id, (err, transVerb) => {
           if (err) return next(err)
 
-          if (!transVerb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
+          if (!transVerb) return next(new Error(`Verb with id '${req.body.id}' not found!`))
 
           verb.translations.push(transVerb._id)
           transVerb.translations.push(verb._id)
@@ -240,7 +252,7 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang', (req, res, ne
         Verb.findByInfinitive(req.params.translang, req.body.infinitive, (err, transVerb) => {
           if (err) return next(err)
 
-          if (!transVerb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
+          if (!transVerb) return next(new Error(`Verb with infinitive '${req.body.infinitive}' not found!`))
 
           verb.translations.push(transVerb._id)
           transVerb.translations.push(verb._id)
