@@ -4,7 +4,7 @@
   "description": "API for verbs from different languages.",
   "main": "server.js",
   "scripts": {
-    "test": "standard && PORT=3333 DB='mongodb://localhost/verball_test' babel-node `which dredd` && ava",
+    "test": "standard && PORT=3333 DB='mongodb://localhost/verball_test' babel-node `which dredd` && DB='mongodb://localhost/verball_test' ava",
     "start": "babel-node server.js",
     "dev": "nodemon --exec 'babel-node server.js' --ignore doc/",
     "devtest": "nodemon --exec 'npm test & babel-node server.js' --ignore doc/",
