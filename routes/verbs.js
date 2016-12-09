@@ -1,6 +1,7 @@
 import { Language, Verb } from '../models'
 import { Types } from 'mongoose'
 import { Router } from 'express'
+import flatten from 'flat'
 
 const verbs = Router()
 
@@ -19,15 +20,9 @@ verbs.param('lang', (req, res, next, code) => {
 verbs.param('translang', verbs.params.lang[0])
 
 /**
- * @api {get} /verbs/:languageCode All verbs (of one language)
- * @apiName Verbs
- * @apiGroup Verb
  *
- * @apiParam {String} [languageCode] The language code to get verbs for
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs
- * curl -i http://localhost:3000/verbs/en
+ * List All Verbs [GET /verbs]
+ * List All Verbs of a Language [GET /verbs/{language_code}]
  *
  */
 
@@ -50,14 +45,24 @@ verbs.get('/:lang([a-z]{2})?', (req, res, next) => {
 })
 
 /**
- * @api {get} /verbs/:id Find By Id
- * @apiName FindVerbById
- * @apiGroup Verb
  *
- * @apiParam {String} id The id of the verb.
+ * Create Verb [POST /verbs]
  *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/5835a799c00d0239f11083d4
+ */
+
+verbs.post('/', (req, res, next) => {
+  const newVerb = new Verb(req.body)
+
+  newVerb.save((err, newVerb) => {
+    if (err) return next(err)
+
+    return res.status(201).send(newVerb)
+  })
+})
+
+/**
+ *
+ * Get Verb by ID [GET /verbs/{id}]
  *
  */
 
@@ -84,15 +89,8 @@ verbs.get('/:id', (req, res, next) => {
 })
 
 /**
- * @api {get} /verbs/:lang/:infinitive Verb by Language and Infinitive
- * @apiName VerbInfinitive
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/en/go
+ * Get Verb by Language and Infinitive [GET /verbs/{language_code}/{infinitive}]
  *
  */
 
@@ -115,15 +113,8 @@ verbs.get('/:lang([a-z]{2})/:infinitive', (req, res, next) => {
 })
 
 /**
- * @api {get} /verbs/:lang/:infinitive/translations Translations of a Verb
- * @apiName VerbTranslations
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/en/go/translations
+ * Get Translations of a Verb by Language and Infinitive [GET /verbs/{language_code}/{infinitive}/translations]
  *
  */
 
@@ -138,14 +129,8 @@ verbs.get('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
 })
 
 /**
- * @api {get} /verbs/:id/translations Translations of a Verb by Id
- * @apiName VerbTranslationsById
- * @apiGroup Verb
  *
- * @apiParam {String} lang The id of the verb
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/5835a799c00d0239f11083d4/translations
+ * Get Translations of a Verb by ID [GET /verbs/{id}/translations]
  *
  */
 
@@ -160,16 +145,8 @@ verbs.get('/:id/translations', (req, res, next) => {
 })
 
 /**
- * @api {post} /verbs/:lang/:infinitive/translations/:translang Create Translation of a Verb
- * @apiName CreateVerbTranslation
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- * @apiParam {String} translang The language code of the translated verb's language
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/en/go/translations/de/
+ * Create a Translation of a Verb [POST /verbs/{language_code}/{infinitive}/translations]
  *
  */
 
@@ -202,16 +179,8 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations', (req, res, next) => {
 })
 
 /**
- * @api {post} /verbs/:lang/:infinitive/translations/:translang Link Translations of two Verbs
- * @apiName LinkVerbTranslations
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- * @apiParam {String} translang The language code of the translated verb's language
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/verbs/en/go/translations/de
+ * Link Translations of two Verbs [GET /verbs/{language_code}/{infinitive}/translations/{translation_language_code}]
  *
  */
 
@@ -238,96 +207,58 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang([a-z]{2})', (re
 })
 
 /**
- * @api {post} /verbs/ Create Verb
- * @apiName CreateVerb
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- *
- * @apiExample Example usage:
- * curl -X POST -d infinitive=go -d language=en http://localhost:3000/verbs
- *
- */
-
-verbs.post('/', (req, res, next) => {
-  const newVerb = new Verb(req.body)
-
-  newVerb.save((err, newVerb) => {
-    if (err) return next(err)
-
-    return res.status(201).send(newVerb)
-  })
-})
-
-/**
- * @api {put} /verbs/:id Update Verb by Id
- * @apiName UpdateVerbById
- * @apiGroup Verb
- *
- * @apiParam {String} lang The id of the verb
- *
- * @apiExample Example usage:
- * curl -X PUT -d infinitive=walk -d language=en http://localhost:3000/verbs/5835a799c00d0239f11083d4
+ * Update Verb by ID [PUT /verbs/{id}]
  *
  */
 
 verbs.put('/:id', (req, res, next) => {
-  Verb.findById(req.params.id, (err, verb) => {
-    if (err) return next(err)
+  let updateParams = new Verb(req.body).toObject()
+  delete updateParams._id
+  delete updateParams.translations
+  updateParams = flatten(updateParams)
 
-    if (!verb) return next(new Error(`Verb with id '${req.params.id}' not found!`))
-
-    verb.infinitive = req.body.infinitive.toLowerCase()
-    verb.language = req.body.language.toLowerCase()
-
-    verb.save((err, newVerb) => {
+  Verb.findByIdAndUpdate(req.params.id,
+    { $set: updateParams },
+    { new: true },
+    (err, verb) => {
       if (err) return next(err)
 
-      return res.send(newVerb)
-    })
-  })
+      if (!verb) return next(new Error(`Verb with ID '${req.params.id}' not found!`))
+
+      return res.location(verb.url).send(verb)
+    }
+  )
 })
 
 /**
- * @api {put} /verbs/:lang/:infinitive Update Verb
- * @apiName UpdateVerb
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- *
- * @apiExample Example usage:
- * curl -X PUT -d infinitive=walk -d language=en http://localhost:3000/verbs/en/go
+ * Update Verb by Language Code and Infinitive [PUT /verbs/{language_code}/{infinitive}]
  *
  */
 
 verbs.put('/:lang([a-z]{2})/:infinitive', (req, res, next) => {
-  Verb.findByInfinitive(req.params.lang, req.params.infinitive, (err, verb) => {
-    if (err) return next(err)
+  let updateParams = new Verb(req.body).toObject()
+  delete updateParams._id
+  delete updateParams.translations
+  updateParams = flatten(updateParams)
 
-    if (!verb) return next(new Error(`Verb '${req.params.infinitive}' [${req.params.lang}] not found!`))
-
-    verb.infinitive = req.body.infinitive.toLowerCase()
-    verb.language = req.body.language.toLowerCase()
-
-    verb.save((err, newVerb) => {
+  Verb.findOneAndUpdate({ language: req.params.lang, infinitive: req.params.infinitive },
+    { $set: updateParams },
+    { new: true },
+    (err, verb) => {
       if (err) return next(err)
 
-      return res.send(newVerb)
-    })
-  })
+      if (!verb) return next(new Error(`Verb with ID '${req.params.id}' not found!`))
+
+      return res.location(verb.url).send(verb)
+    }
+  )
 })
 
 /**
- * @api {delete} /verbs/:id Delete Verb by Id
- * @apiName DeleteVerbById
- * @apiGroup Verb
  *
- * @apiParam {String} id The id of the verb
- *
- * @apiExample Example usage:
- * curl -X DELETE http://localhost:3000/verbs/5835a799c00d0239f11083d4
+ * Delete Verb by ID [DELETE /verbs/{id}]
  *
  */
 
@@ -346,15 +277,8 @@ verbs.delete('/:id', (req, res, next) => {
 })
 
 /**
- * @api {delete} /verbs/:lang/:infinitive Delete Verb
- * @apiName DeleteVerb
- * @apiGroup Verb
  *
- * @apiParam {String} lang The language code of the verb's languages
- * @apiParam {String} infinitive The infinitive of the verb in the respective language
- *
- * @apiExample Example usage:
- * curl -X DELETE http://localhost:3000/verbs/en/go
+ * Delete Verb by Language Code and Infinitive [DELETE /verbs/{language_code}/{infinitive}]
  *
  */
 

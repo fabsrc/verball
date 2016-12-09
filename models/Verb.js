@@ -7,12 +7,14 @@ const verbSchema = new Schema(
     language: {
       type: String,
       ref: 'Language',
+      lowercase: true,
       required: true
     },
     infinitive: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
+      lowercase: true
     },
     translations: [{ type: Schema.Types.ObjectId, ref: 'Verb' }]
   }

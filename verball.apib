@@ -34,11 +34,11 @@ Resources for the **Languages** of the **Verbs**.
         ]
 
 
-### Create a New Language [POST]
+### Create a Language [POST]
 
 To create a new **Language** you have `POST` a JSON document including the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), the English name and the native name of the language.
 
-+ code (string) - ISO 639-1 code of the language (e.g. `en`)
++ code (string) - ISO 639-1 code of the language
 + name (string) - English name of the language
 + nativeName (string) - Native name of the language
 
@@ -55,7 +55,7 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
     + Headers
 
             Location: /language/fr
-    
+
     + Body
 
             {
@@ -71,13 +71,13 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
 ## Language [/languages/{language_code}]
 
 + Parameters
-    + language_code: en (string) - ISO 639-1 code of the language
+    + language_code: en (string) - ISO 639-1 Code of the Language
 
 
 ### Get a Language [GET]
 
 + Response 200 (application/json; charset=utf-8)
-    
+
         {
             "code": "en",
             "id": "en",
@@ -89,8 +89,8 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
 
 ### Update a Language [PUT]
 
-+ name (string) - English name of the language
-+ nativeName (string) - Native name of the language
++ name (string) - English Name of the Language
++ nativeName (string) - Native Name of the Language
 
 + Request (application/json)
 
@@ -116,5 +116,290 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
 
 
 ### Delete a Language [DELETE]
+
++ Response 204
+
+
+
+# Group Verbs
+
+Resources for **Verbs**.
+
+
+## Verb Collection [/verbs]
+
+### List All Verbs [GET /verbs]
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "go",
+                "language": "en",
+                "url": "/verbs/en/go",
+                "id": "5849da8acb46ec150a090068"
+            },
+            {
+                "infinitive": "gehen",
+                "language": "de",
+                "url": "/verbs/de/gehen",
+                "id": "5849dfbbfa380e1a36daf91d"
+            },
+            {
+                "infinitive": "fahren",
+                "language": "de",
+                "url": "/verbs/de/fahren",
+                "id": "5849eb774a5d2f244f416e6a"
+            }
+        ]
+
+
+### List All Verbs of a Language [GET /verbs/{language_code}]
+
++ Parameters
+    + language_code: en (optional, string) - ISO 639-1 Code of the Language
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "go",
+                "language": "en",
+                "url": "/verbs/en/go",
+                "id": "5849da8acb46ec150a090068"
+            }
+        ]
+
+### Create a Verb [POST /verbs]
+
++ infinitive (string) - Infinitive of the Verb
++ language (string) - ISO 639-1 Code of the Language
+
++ Request (application/json; charset=utf-8)
+
+        {
+            "infinitive": "fly",
+            "language": "en"
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+        {
+            "infinitive": "fly",
+            "language": "en",
+            "url": "/verbs/en/fly",
+            "id": "5849da8acb46ec150a090068"
+        }
+
+
+## Verb [/verbs/]
+
+### Get a Verb By ID [GET /verbs/{id}]
+
++ Parameters
+    + id: 5849da8acb46ec150a090068 (optional, string) - ID of the Verb
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "infinitive": "go",
+            "language": "en",
+            "url": "/verbs/en/go",
+            "id": "5849da8acb46ec150a090068"
+        }
+
+
+### Get a Verb By Language and Infinitive [GET /verbs/{language_code}/{infinitive}]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the Language
+    + infinitive: go (string) - Infinitive of the Verb
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "infinitive": "go",
+            "language": "en",
+            "url": "/verbs/en/go",
+            "id": "5849da8acb46ec150a090068"
+        }
+
+
+### Get Translations of a Verb by Language and Infinitive [GET /verbs/{language_code}/{infinitive}/translations]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the Language
+    + infinitive: go (string) - Infinitive of the Verb
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "gehen",
+                "language": "de",
+                "url": "/verbs/de/gehen",
+                "id": "5849dfbbfa380e1a36daf91d"
+            }
+        ]
+
+
+### Get Translations of a Verb by ID [GET /verbs/{id}/translations]
+
++ Parameters
+    + id: 5849da8acb46ec150a090068 (string) - ID of the Verb
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "gehen",
+                "language": "de",
+                "url": "/verbs/de/gehen",
+                "id": "5849dfbbfa380e1a36daf91d"
+            }
+        ]
+
+
+###  Create a Translation of a Verb [POST /verbs/{language_code}/{infinitive}/translations]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the Language
+    + infinitive: go (string) - Infinitive of the Verb
+
++ Request (application/json; charset=utf-8)
+
+        {
+            "infinitive": "hingehen",
+            "language": "de"
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "go",
+                "language": "en",
+                "url": "/verbs/en/go",
+                "id": "5849da8acb46ec150a090068"
+            },
+            {
+                "infinitive": "hingehen",
+                "language": "de",
+                "url": "/verbs/de/hingehen",
+                "id": "584b0ed824a4b9032d2cde1f"
+            }
+        ]
+
+
+###  Link Translations of two Verbs [POST /verbs/{language_code}/{infinitive}/translations/{translation_language_code}]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the Language
+    + infinitive: go (string) - Infinitive of the Verb
+    + translation_language_code: de (string) - ISO 639-1 code of the Translation Language
+
++ Request with ID (application/json; charset=utf-8)
+
+        {
+            "id": "5849eb774a5d2f244f416e6a"
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "go",
+                "language": "en",
+                "url": "/verbs/en/go",
+                "id": "5849da8acb46ec150a090068"
+            },
+            {
+                "infinitive": "fahren",
+                "language": "de",
+                "url": "/verbs/de/fahren",
+                "id": "5849eb774a5d2f244f416e6a"
+            }
+        ]
+
++ Request with Infinitive (application/json; charset=utf-8)
+
+        {
+            "infinitive": "fahren"
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "go",
+                "language": "en",
+                "url": "/verbs/en/go",
+                "id": "5849da8acb46ec150a090068"
+            },
+            {
+                "infinitive": "fahren",
+                "language": "de",
+                "url": "/verbs/de/fahren",
+                "id": "5849eb774a5d2f244f416e6a"
+            }
+        ]
+
+
+### Update Verb by ID [PUT /verbs/{id}]
+
++ Parameters
+    + id: 5849da8acb46ec150a090068 (string) - ID of the Verb
+
++ Request (application/json; charset=utf-8)
+
+        {
+            "infinitive": "Walk"
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "infinitive": "walk",
+            "language": "de",
+            "url": "/verbs/de/walk",
+            "id": "5849dfbbfa380e1a36daf91d"
+        }
+
+
+### Update Verb by Language Code and Infinitive [PUT /verbs/{language_code}/{infinitive}]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the Language
+    + infinitive: go (string) - Infinitive of the Verb
+
++ Request (application/json; charset=utf-8)
+
+        {
+            "infinitive": "Walk"
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "infinitive": "walk",
+            "language": "de",
+            "url": "/verbs/de/walk",
+            "id": "5849dfbbfa380e1a36daf91d"
+        }
+
+
+### Delete Verb by ID [DELETE /verbs/{id}]
+
++ Parameters
+    + id: 5849da8acb46ec150a090068 (string) - ID of the Verb
+
++ Response 204
+
+
+### Delete Verb by Language Code and Infinitive [DELETE /verbs/{language_code}/{infinitive}]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the Language
+    + infinitive: go (string) - Infinitive of the Verb
 
 + Response 204

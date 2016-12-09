@@ -20,7 +20,7 @@ languages.get('/', (req, res, next) => {
 
 /**
  *
- * Create New Language [POST /languages]
+ * Create Language [POST /languages]
  *
  */
 
@@ -41,10 +41,10 @@ languages.post('/', (req, res, next) => {
  */
 
 languages.get('/:code', (req, res, next) => {
-  Language.findById(req.params.code.toLowerCase(), (err, language) => {
+  Language.findById(req.params.code, (err, language) => {
     if (err) return next(err)
 
-    if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
+    if (!language) return next(new Error(`Language '${req.params.code}' not found!`))
 
     return res.send(language)
   })
@@ -65,7 +65,7 @@ languages.put('/:code', (req, res, next) => {
     (err, language) => {
       if (err) return next(err)
 
-      if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
+      if (!language) return next(new Error(`Language '${req.params.code}' not found!`))
 
       return res.location(language.url).send(language)
     }
@@ -79,10 +79,10 @@ languages.put('/:code', (req, res, next) => {
  */
 
 languages.delete('/:code', (req, res, next) => {
-  Language.findOneAndRemove({ _id: req.params.code.toLowerCase() }, (err, language) => {
+  Language.findOneAndRemove({ _id: req.params.code }, (err, language) => {
     if (err) return next(err)
 
-    if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
+    if (!language) return next(new Error(`Language '${req.params.code}' not found!`))
 
     return res.sendStatus(204)
   })
