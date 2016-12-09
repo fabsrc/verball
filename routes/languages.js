@@ -5,19 +5,8 @@ import { Language } from '../models'
 const languages = Router()
 
 /**
- * @api {get} /languages Get Languages
- * @apiName GetLanguages
- * @apiGroup Language
  *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/languages
- *
- * @apiSuccess {Object[]} languages              List of languages.
- * @apiSuccess {String}   languages.code         Language code.
- * @apiSuccess {String}   languages.id           Language id (Alias of code).
- * @apiSuccess {String}   languages.name         English name of the language.
- * @apiSuccess {String}   languages.nativeName   Native name of the language.
- * @apiSuccess {String}   languages.url          URL of the language.
+ * Get All Languages [GET /languages]
  *
  */
 
@@ -30,27 +19,8 @@ languages.get('/', (req, res, next) => {
 })
 
 /**
- * @api {post} /languages Create Language
- * @apiName CreateLanguage
- * @apiGroup Language
  *
- * @apiParam {String}   code         Language code.
- * @apiParam {String}   name         English name of the language.
- * @apiParam {String}   nativeName   Native name of the language.
- *
- * @apiExample Example usage:
- * curl -i -X POST -H "Content-Type:application/json" -d \
- * '{
- *   "code": "fr",
- *   "name": "french",
- *   "nativeName": "français"
- * }' http://localhost:3000/languages
- *
- * @apiSuccess {String}   code         Language code.
- * @apiSuccess {String}   id           Language id (Alias of code).
- * @apiSuccess {String}   name         English name of the language.
- * @apiSuccess {String}   nativeName   Native name of the language.
- * @apiSuccess {String}   url          URL of the language.
+ * Create New Language [POST /languages]
  *
  */
 
@@ -60,25 +30,13 @@ languages.post('/', (req, res, next) => {
   Language.create(req.body, (err, newLanguage) => {
     if (err) return next(err)
 
-    return res.status(201).send(newLanguage)
+    return res.location(newLanguage.url).status(201).send(newLanguage)
   })
 })
 
 /**
- * @api {get} /languages/:code Get Language by Code
- * @apiName GetLanguageByCode
- * @apiGroup Language
  *
- * @apiParam {String}   code         Language code.
- *
- * @apiExample Example usage:
- * curl -i http://localhost:3000/languages/en
- *
- * @apiSuccess {String}   code         Language code.
- * @apiSuccess {String}   id           Language id (Alias of code).
- * @apiSuccess {String}   name         English name of the language.
- * @apiSuccess {String}   nativeName   Native name of the language.
- * @apiSuccess {String}   url          URL of the language.
+ * Get Language [GET /languages/{language_code}]
  *
  */
 
@@ -93,27 +51,8 @@ languages.get('/:code', (req, res, next) => {
 })
 
 /**
- * @api {put} /languages/:code Update Language
- * @apiName UpdateLanguage
- * @apiGroup Language
  *
- * @apiParam {String}   code         Code of the Language.
- *
- * @apiParam {String}   name         New English name of the language.
- * @apiParam {String}   nativeName   New Native name of the language.
- *
- * @apiExample Example usage:
- * curl -i -X PUT -H "Content-Type:application/json" -d \
- * '{
- *   "name": "francis",
- *   "nativeName": "francis"
- * }' http://localhost:3000/languages/fr
- *
- * @apiSuccess {String}   code         Language code.
- * @apiSuccess {String}   id           Language id (Alias of code).
- * @apiSuccess {String}   name         English name of the language.
- * @apiSuccess {String}   nativeName   Native name of the language.
- * @apiSuccess {String}   url          URL of the language.
+ * Update Languages [PUT /languages/{language_code}]
  *
  */
 
@@ -128,20 +67,14 @@ languages.put('/:code', (req, res, next) => {
 
       if (!language) return next(new Error(`Language '${req.params.code.toLowerCase()}' not found!`))
 
-      return res.send(language)
+      return res.location(language.url).send(language)
     }
   )
 })
 
 /**
- * @api {delete} /languages/:code Delete Language
- * @apiName DeleteLanguage
- * @apiGroup Language
  *
- * @apiParam {String}   code   Code of the language.
- *
- * @apiExample Example usage:
- * curl -i -X DELETE http://localhost:3000/languages/fr
+ * Delete Language [DELETE /languages/{language_code}]
  *
  */
 

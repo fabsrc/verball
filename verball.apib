@@ -1,0 +1,120 @@
+FORMAT: A1
+
+# Verball
+
+API for verbs from different languages with translations and conjugations.
+
+
+# Group Languages
+
+Resources for the **Languages** of the **Verbs**.
+
+
+## Language Collection [/languages]
+
+### List All Languages [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "code": "en",
+                "id": "en",
+                "name": "english",
+                "nativeName": "english",
+                "url": "/languages/en"
+            },
+            {
+                "code": "de",
+                "id": "de",
+                "name": "german",
+                "nativeName": "deutsch",
+                "url": "/languages/de"
+            }
+        ]
+
+
+### Create a New Language [POST]
+
+To create a new **Language** you have `POST` a JSON document including the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), the English name and the native name of the language.
+
++ code (string) - ISO 639-1 code of the language (e.g. `en`)
++ name (string) - English name of the language
++ nativeName (string) - Native name of the language
+
++ Request (application/json)
+
+        {
+            "code": "fr",
+            "name": "French",
+            "nativeName": "Français"
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+    + Headers
+
+            Location: /language/fr
+    
+    + Body
+
+            {
+                "code": "fr",
+                "id": "fr",
+                "name": "french",
+                "nativeName": "français",
+                "url": "/languages/fr"
+            }
+
+
+
+## Language [/languages/{language_code}]
+
++ Parameters
+    + language_code: en (string) - ISO 639-1 code of the language
+
+
+### Get a Language [GET]
+
++ Response 200 (application/json; charset=utf-8)
+    
+        {
+            "code": "en",
+            "id": "en",
+            "name": "english",
+            "nativeName": "english",
+            "url": "/languages/en"
+        }
+
+
+### Update a Language [PUT]
+
++ name (string) - English name of the language
++ nativeName (string) - Native name of the language
+
++ Request (application/json)
+
+        {
+            "nativeName": "american"
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Headers
+
+            Location: /languages/en
+
+    + Body
+
+            {
+                "code": "en",
+                "id": "en",
+                "name": "english",
+                "nativeName": "american",
+                "url": "/languages/en"
+            }
+
+
+### Delete a Language [DELETE]
+
++ Response 204
