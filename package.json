@@ -8,7 +8,7 @@
     "start": "babel-node server.js",
     "dev": "nodemon --exec 'babel-node server.js' --ignore doc/",
     "devtest": "nodemon --exec 'npm test & babel-node server.js' --ignore doc/",
-    "doc": "apidoc -e 'node_modules'"
+    "doc": "mkdir -p doc && aglio -i verball.apib -o doc/index.html"
   },
   "keywords": [
     "api",
@@ -35,7 +35,7 @@
     "mongoose-validator": "^1.2.5"
   },
   "devDependencies": {
-    "apidoc": "^0.16.1",
+    "aglio": "^2.3.0",
     "ava": "^0.17.0",
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
@@ -57,9 +57,5 @@
       "babel-register"
     ],
     "babel": "inherit"
-  },
-  "apidoc": {
-    "title": "Verball API Documentation",
-    "version": "0.1.0"
   }
 }
