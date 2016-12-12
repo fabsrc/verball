@@ -170,6 +170,22 @@ Resources for **Verbs**.
             }
         ]
 
+### Find All Verbs Matching a Query String [GET /verbs?q={query}]
+
++ Parameters
+    + query: go (optional, string) - Query string for verb infinitive.
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "infinitive": "go",
+                "language": "en",
+                "url": "/verbs/en/go",
+                "id": "5849da8acb46ec150a090068"
+            }
+        ]
+
 ### Create a Verb [POST /verbs]
 
 + infinitive (string) - Infinitive of the Verb

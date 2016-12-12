@@ -9,6 +9,7 @@ const verbs = Router()
  *
  * List All Verbs [GET /verbs]
  * List All Verbs of a Language [GET /verbs/{language_code}]
+ * Find Verbs by Query [GET /verbs?q={query}]
  *
  */
 
