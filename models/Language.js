@@ -44,7 +44,9 @@ const languageSchema = new Schema(
 )
 
 languageSchema.plugin(uniqueValidator)
-languageSchema.virtual('code').get(function () { return this._id })
+languageSchema.virtual('code')
+  .get(function () { return this._id })
+  .set(function (code) { this.set('_id', code) })
 languageSchema.virtual('url').get(function () { return `/languages/${this.code}` })
 languageSchema.set('toJSON', {
   transform: (doc, ret, options) => {

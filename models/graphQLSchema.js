@@ -5,8 +5,7 @@ import {
   GraphQLList,
   GraphQLInputObjectType
 } from 'graphql'
-import Language from './Language'
-import Verb from './Verb'
+import { Language, Verb } from '.'
 
 const LanguageType = new GraphQLObjectType({
   name: 'Language',
@@ -39,12 +38,22 @@ const VerbType = new GraphQLObjectType({
 const VerbInputType = new GraphQLInputObjectType({
   name: 'VerbInput',
   fields: {
+    _id: { type: GraphQLString },
     language: { type: GraphQLString },
     infinitive: { type: GraphQLString }
   }
 })
 
-const QueryType = new GraphQLObjectType({
+const LanguageInputType = new GraphQLInputObjectType({
+  name: 'LanguageInput',
+  fields: {
+    code: { type: GraphQLString },
+    name: { type: GraphQLString },
+    nativeName: { type: GraphQLString }
+  }
+})
+
+const Query = new GraphQLObjectType({
   name: 'Query',
   description: '...',
   fields: {
@@ -74,23 +83,31 @@ const QueryType = new GraphQLObjectType({
           return Verb.findByInfinitive(args.verb.language, args.verb.infinitive).exec()
         }
       }
+    },
+    verbs: {
+      type: new GraphQLList(VerbType),
+      resolve: (root, args) => Verb.find().exec()
     }
   }
 })
 
-const MutationType = new GraphQLObjectType({
+const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   description: '...',
   fields: () => ({
+    createLanguage: {
+      type: LanguageType,
+      args: {
+        language: { type: LanguageInputType }
+      },
+      resolve: (root, args) => Language.create(args.language)
+    },
     createVerb: {
       type: VerbType,
       args: {
         verb: { type: VerbInputType }
       },
-      resolve: (root, args) => {
-        let v = new Verb(args.verb)
-        return v.save()
-      }
+      resolve: (root, args) => Verb.create(args.verb)
     },
     linkVerbTranslations: {
       type: new GraphQLList(VerbType),
@@ -99,13 +116,12 @@ const MutationType = new GraphQLObjectType({
         transVerb: { type: VerbInputType }
       },
       resolve: (root, args) => {
-        return Promise.all([
-          Verb.findByInfinitive(args.verb.language, args.verb.infinitive).exec(),
-          Verb.findByInfinitive(args.transVerb.language, args.transVerb.infinitive).exec()
-        ]).then(([verb, transVerb]) => {
-          verb.translations.push(transVerb.id)
-          transVerb.translations.push(verb.id)
-          return Promise.all([verb.save(), transVerb.save()])
+        return new Promise((resolve, reject) => {
+          Verb.linkTranslations(args.verb, args.transVerb, (err, res) => {
+            if (err) reject(err)
+
+            resolve(res)
+          })
         })
       }
     },
@@ -129,6 +145,6 @@ const MutationType = new GraphQLObjectType({
 })
 
 export default new GraphQLSchema({
-  query: QueryType,
-  mutation: MutationType
+  query: Query,
+  mutation: Mutation
 })

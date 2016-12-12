@@ -5,20 +5,6 @@ import flatten from 'flat'
 
 const verbs = Router()
 
-verbs.param('lang', (req, res, next, code) => {
-  Language.findById(code, (err, language) => {
-    if (err) {
-      return next(err)
-    } else if (language) {
-      return next()
-    } else {
-      return next(new Error(`Language with code ${code} not found.`))
-    }
-  })
-})
-
-verbs.param('translang', verbs.params.lang[0])
-
 /**
  *
  * List All Verbs [GET /verbs]
@@ -188,7 +174,7 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang([a-z]{2})', (re
   let translationVerbCriteria
 
   if (req.body.id && Types.ObjectId.isValid(req.body.id)) {
-    translationVerbCriteria = { _id: req.body.id }
+    translationVerbCriteria = { _id: req.body.id || req.body._id }
   } else if (req.body.infinitive) {
     translationVerbCriteria = { language: req.params.translang, infinitive: req.body.infinitive }
   } else {
@@ -291,5 +277,25 @@ verbs.delete('/:lang([a-z]{2})/:infinitive', (req, res, next) => {
     return res.sendStatus(204)
   })
 })
+
+/**
+ *
+ * Language Check for each Query including :lang parameter
+ *
+ */
+
+verbs.param('lang', (req, res, next, code) => {
+  Language.findById(code, (err, language) => {
+    if (err) {
+      return next(err)
+    } else if (language) {
+      return next()
+    } else {
+      return next(new Error(`Language with code ${code} not found.`))
+    }
+  })
+})
+
+verbs.param('translang', verbs.params.lang[0])
 
 export default verbs
