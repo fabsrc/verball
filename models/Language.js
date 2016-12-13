@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import validate from 'mongoose-validator'
 import uniqueValidator from 'mongoose-unique-validator'
+import camelcase from 'camelcase'
 
 const languageSchema = new Schema(
   {
@@ -39,11 +40,35 @@ const languageSchema = new Schema(
       '3fs': String,
       '3ns': String,
       'form': String
+    },
+    tenses: {
+      type: [{
+        _id: {
+          type: String
+        },
+        name: {
+          type: String,
+          required: true
+        },
+        nativeName: {
+          type: String,
+          required: true
+        }
+      }],
+      default: void 0
     }
   }
 )
 
 languageSchema.plugin(uniqueValidator)
+languageSchema.index({ '_id': 1, 'tenses._id': 1 }, { unique: true })
+languageSchema.path('tenses')
+  .set(function (tenses) {
+    return tenses.map(tense => {
+      tense._id = camelcase(tense.name)
+      return tense
+    })
+  })
 languageSchema.virtual('code')
   .get(function () { return this._id })
   .set(function (code) { this.set('_id', code) })

@@ -1,6 +1,7 @@
 import mongoose, { Schema, Types } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 import idValidator from 'mongoose-id-validator'
+import { Language } from '.'
 
 const verbSchema = new Schema(
   {
@@ -13,14 +14,29 @@ const verbSchema = new Schema(
     infinitive: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true
     },
-    translations: [{ type: Schema.Types.ObjectId, ref: 'Verb' }]
+    conjugations: {
+      type: Schema.Types.Mixed,
+      validate: {
+        validator: function (conjugations, cb) {
+          Language.findById(this.language)
+            .then(lang => cb(Object.keys(conjugations).every(tense => lang ? lang.tenses.map(l => l._id).includes(tense) : true)))
+            .catch(err => console.error(err))
+        },
+        message: 'No valid tenses for this Language.'
+      }
+    },
+    translations: {
+      type: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Verb'
+      }]
+    }
   }
 )
 
-verbSchema.index({ infinitive: 1 }, { unique: true })
+verbSchema.index({ language: 1, infinitive: 1 }, { unique: true })
 verbSchema.plugin(uniqueValidator)
 verbSchema.plugin(idValidator)
 

@@ -22,14 +22,58 @@ Resources for the **Languages** of the **Verbs**.
                 "id": "en",
                 "name": "english",
                 "nativeName": "english",
-                "url": "/languages/en"
+                "url": "/languages/en",
+                "pronouns": {
+                    "1s": "I",
+                    "1p": "we",
+                    "2s": "you",
+                    "2p": "you",
+                    "3ms": "he",
+                    "3fs": "she",
+                    "3ns": "it"
+                },
+                "tenses": [
+                    {
+                        "name": "simple past",
+                        "nativeName": "simple past",
+                        "_id": "simplePast"
+                    },
+                    {
+                        "name": "present",
+                        "nativeName": "present",
+                        "_id": "present"
+                    }
+                ]
             },
             {
                 "code": "de",
                 "id": "de",
                 "name": "german",
                 "nativeName": "deutsch",
-                "url": "/languages/de"
+                "url": "/languages/de",
+                "pronouns": {
+                    "1s": "ich",
+                    "1p": "wir",
+                    "2s": "du",
+                    "2p": "ihr",
+                    "3ms": "er",
+                    "3fs": "sie",
+                    "3ns": "es",
+                    "form": "Sie"
+                },
+                "tenses": [
+                    {
+                        "name": "simple past",
+                        "nativeName": "Präteritum",
+                        "_id": "simplePast"
+                    },
+                    {
+                        "name": "present",
+                        "nativeName": "Präsens",
+                        "_id": "present"
+                    }
+
+                ]
             }
         ]
 
@@ -41,13 +85,28 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
 + code (string) - ISO 639-1 code of the language
 + name (string) - English name of the language
 + nativeName (string) - Native name of the language
++ 
++ tenses (array) - Array of tenses
+    + name (string) - Name of the tense
+    + nativeName (string) - Native name of the tense
 
 + Request (application/json)
 
         {
             "code": "fr",
             "name": "French",
-            "nativeName": "Français"
+            "nativeName": "Français",
+
+            "tenses": [
+                {
+                  "name": "simple past", 
+                  "nativeName": "passé simple"
+                },
+                {
+                  "name": "present", 
+                  "nativeName": "présent"
+                }
+            ]
         }
 
 + Response 201 (application/json; charset=utf-8)
@@ -63,7 +122,19 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
                 "id": "fr",
                 "name": "french",
                 "nativeName": "français",
-                "url": "/languages/fr"
+                "url": "/languages/fr",
+                "tenses": [
+                    {
+                      "name": "simple past", 
+                      "nativeName": "passé simple",
+                      "_id": "simplePast"
+                    },
+                    {
+                      "name": "present", 
+                      "nativeName": "présent",
+                      "_id": "present"
+                    }
+                ]
             }
 
 
@@ -83,7 +154,29 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
             "id": "en",
             "name": "english",
             "nativeName": "english",
-            "url": "/languages/en"
+            "url": "/languages/en",
+            "pronouns": {
+                "1s": "I",
+                "1p": "we",
+                "2s": "you",
+                "2p": "you",
+                "3ms": "he",
+                "3fs": "she",
+                "3ns": "it"
+            },
+            "tenses": [
+                {
+                    "name": "simple past",
+                    "nativeName": "Präteritum",
+                    "_id": "simplePast"
+                },
+                {
+                    "name": "present",
+                    "nativeName": "Präsens",
+                    "_id": "present"
+                }
+
+            ]
         }
 
 
@@ -95,7 +188,10 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
 + Request (application/json)
 
         {
-            "nativeName": "american"
+            "nativeName": "american",
+            "pronouns": {
+                "2p": "y'all"
+            }
         }
 
 + Response 200 (application/json; charset=utf-8)
@@ -111,7 +207,29 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
                 "id": "en",
                 "name": "english",
                 "nativeName": "american",
-                "url": "/languages/en"
+                "url": "/languages/en",
+                "pronouns": {
+                    "1s": "I",
+                    "1p": "we",
+                    "2s": "you",
+                    "2p": "y'all",
+                    "3ms": "he",
+                    "3fs": "she",
+                    "3ns": "it"
+                },
+                "tenses": [
+                    {
+                        "name": "simple past",
+                        "nativeName": "Präteritum",
+                        "_id": "simplePast"
+                    },
+                    {
+                        "name": "present",
+                        "nativeName": "Präsens",
+                        "_id": "present"
+                    }
+
+                ]
             }
 
 
@@ -137,19 +255,40 @@ Resources for **Verbs**.
                 "infinitive": "go",
                 "language": "en",
                 "url": "/verbs/en/go",
-                "id": "5849da8acb46ec150a090068"
+                "id": "5849da8acb46ec150a090068",
+                "conjugations": {
+                    "present": {
+                        "1s": "go",
+                        "2s": "go",
+                        "3ms": "goes"
+                    }
+                }
             },
             {
                 "infinitive": "gehen",
                 "language": "de",
                 "url": "/verbs/de/gehen",
-                "id": "5849dfbbfa380e1a36daf91d"
+                "id": "5849dfbbfa380e1a36daf91d",
+                "conjugations": {
+                    "present": {
+                        "1s": "gehe",
+                        "2s": "gehst",
+                        "3ms": "geht"
+                    }
+                }
             },
             {
                 "infinitive": "fahren",
                 "language": "de",
                 "url": "/verbs/de/fahren",
-                "id": "5849eb774a5d2f244f416e6a"
+                "id": "5849eb774a5d2f244f416e6a",
+                "conjugations": {
+                    "present": {
+                        "1s": "fahre",
+                        "2s": "fährst",
+                        "3ms": "fährt"
+                    }
+                }
             }
         ]
 
@@ -166,7 +305,14 @@ Resources for **Verbs**.
                 "infinitive": "go",
                 "language": "en",
                 "url": "/verbs/en/go",
-                "id": "5849da8acb46ec150a090068"
+                "id": "5849da8acb46ec150a090068",
+                "conjugations": {
+                    "present": {
+                        "1s": "go",
+                        "2s": "go",
+                        "3ms": "goes"
+                    }
+                }
             }
         ]
 
@@ -182,7 +328,14 @@ Resources for **Verbs**.
                 "infinitive": "go",
                 "language": "en",
                 "url": "/verbs/en/go",
-                "id": "5849da8acb46ec150a090068"
+                "id": "5849da8acb46ec150a090068",
+                "conjugations": {
+                    "present": {
+                        "1s": "go",
+                        "2s": "go",
+                        "3ms": "goes"
+                    }
+                }
             }
         ]
 
@@ -195,7 +348,14 @@ Resources for **Verbs**.
 
         {
             "infinitive": "fly",
-            "language": "en"
+            "language": "en",
+            "conjugations": {
+                "present": {
+                    "1s": "fly",
+                    "2s": "fly",
+                    "3ms": "flies"
+                }
+            }
         }
 
 + Response 201 (application/json; charset=utf-8)
@@ -204,7 +364,14 @@ Resources for **Verbs**.
             "infinitive": "fly",
             "language": "en",
             "url": "/verbs/en/fly",
-            "id": "5849da8acb46ec150a090068"
+            "id": "5849da8acb46ec150a090068",
+            "conjugations": {
+                "present": {
+                    "1s": "fly",
+                    "2s": "fly",
+                    "3ms": "flies"
+                }
+            }
         }
 
 
@@ -221,7 +388,14 @@ Resources for **Verbs**.
             "infinitive": "go",
             "language": "en",
             "url": "/verbs/en/go",
-            "id": "5849da8acb46ec150a090068"
+            "id": "5849da8acb46ec150a090068",
+            "conjugations": {
+                "present": {
+                    "1s": "go",
+                    "2s": "go",
+                    "3ms": "goes"
+                }
+            }
         }
 
 
@@ -237,7 +411,14 @@ Resources for **Verbs**.
             "infinitive": "go",
             "language": "en",
             "url": "/verbs/en/go",
-            "id": "5849da8acb46ec150a090068"
+            "id": "5849da8acb46ec150a090068",
+            "conjugations": {
+                "present": {
+                    "1s": "go",
+                    "2s": "go",
+                    "3ms": "goes"
+                }
+            }
         }
 
 
@@ -254,7 +435,14 @@ Resources for **Verbs**.
                 "infinitive": "gehen",
                 "language": "de",
                 "url": "/verbs/de/gehen",
-                "id": "5849dfbbfa380e1a36daf91d"
+                "id": "5849dfbbfa380e1a36daf91d",
+                "conjugations": {
+                    "present": {
+                        "1s": "gehe",
+                        "2s": "gehst",
+                        "3ms": "geht"
+                    }
+                }
             }
         ]
 
@@ -271,7 +459,14 @@ Resources for **Verbs**.
                 "infinitive": "gehen",
                 "language": "de",
                 "url": "/verbs/de/gehen",
-                "id": "5849dfbbfa380e1a36daf91d"
+                "id": "5849dfbbfa380e1a36daf91d",
+                "conjugations": {
+                    "present": {
+                        "1s": "gehe",
+                        "2s": "gehst",
+                        "3ms": "geht"
+                    }
+                }
             }
         ]
 
@@ -286,7 +481,14 @@ Resources for **Verbs**.
 
         {
             "infinitive": "hingehen",
-            "language": "de"
+            "language": "de",
+            "conjugations": {
+                "present": {
+                    "1s": "gehe hin",
+                    "2s": "gehst hin",
+                    "3ms": "geht hin"
+                }
+            }
         }
 
 + Response 201 (application/json; charset=utf-8)
@@ -296,13 +498,27 @@ Resources for **Verbs**.
                 "infinitive": "go",
                 "language": "en",
                 "url": "/verbs/en/go",
-                "id": "5849da8acb46ec150a090068"
+                "id": "5849da8acb46ec150a090068",
+                "conjugations": {
+                    "present": {
+                        "1s": "go",
+                        "2s": "go",
+                        "3ms": "goes"
+                    }
+                }
             },
             {
                 "infinitive": "hingehen",
                 "language": "de",
                 "url": "/verbs/de/hingehen",
-                "id": "584b0ed824a4b9032d2cde1f"
+                "id": "584b0ed824a4b9032d2cde1f",
+                "conjugations": {
+                    "present": {
+                        "1s": "gehe hin",
+                        "2s": "gehst hin",
+                        "3ms": "geht hin"
+                    }
+                }
             }
         ]
 
@@ -327,13 +543,27 @@ Resources for **Verbs**.
                 "infinitive": "go",
                 "language": "en",
                 "url": "/verbs/en/go",
-                "id": "5849da8acb46ec150a090068"
+                "id": "5849da8acb46ec150a090068",
+                "conjugations": {
+                    "present": {
+                        "1s": "go",
+                        "2s": "go",
+                        "3ms": "goes"
+                    }
+                }
             },
             {
                 "infinitive": "fahren",
                 "language": "de",
                 "url": "/verbs/de/fahren",
-                "id": "5849eb774a5d2f244f416e6a"
+                "id": "5849eb774a5d2f244f416e6a",
+                "conjugations": {
+                    "present": {
+                        "1s": "fahre",
+                        "2s": "fährst",
+                        "3ms": "fährt"
+                    }
+                }
             }
         ]
 
@@ -350,13 +580,27 @@ Resources for **Verbs**.
                 "infinitive": "go",
                 "language": "en",
                 "url": "/verbs/en/go",
-                "id": "5849da8acb46ec150a090068"
+                "id": "5849da8acb46ec150a090068",
+                "conjugations": {
+                    "present": {
+                        "1s": "go",
+                        "2s": "go",
+                        "3ms": "goes"
+                    }
+                }
             },
             {
                 "infinitive": "fahren",
                 "language": "de",
                 "url": "/verbs/de/fahren",
-                "id": "5849eb774a5d2f244f416e6a"
+                "id": "5849eb774a5d2f244f416e6a",
+                "conjugations": {
+                    "present": {
+                        "1s": "fahre",
+                        "2s": "fährst",
+                        "3ms": "fährt"
+                    }
+                }
             }
         ]
 
@@ -369,7 +613,14 @@ Resources for **Verbs**.
 + Request (application/json; charset=utf-8)
 
         {
-            "infinitive": "Walk"
+            "infinitive": "Walk",
+            "conjugations": {
+                "present": {
+                    "1s": "walk",
+                    "2s": "walk",
+                    "3ms": "walks"
+                }
+            }
         }
 
 + Response 200 (application/json; charset=utf-8)
@@ -378,7 +629,14 @@ Resources for **Verbs**.
             "infinitive": "walk",
             "language": "de",
             "url": "/verbs/de/walk",
-            "id": "5849dfbbfa380e1a36daf91d"
+            "id": "5849dfbbfa380e1a36daf91d",
+            "conjugations": {
+                "present": {
+                    "1s": "walk",
+                    "2s": "walk",
+                    "3ms": "walks"
+                }
+            }
         }
 
 
@@ -391,16 +649,30 @@ Resources for **Verbs**.
 + Request (application/json; charset=utf-8)
 
         {
-            "infinitive": "Walk"
+            "infinitive": "Walk",
+            "conjugations": {
+                "present": {
+                    "1s": "walk",
+                    "2s": "walk",
+                    "3ms": "walk"
+                }
+            }
         }
 
 + Response 200 (application/json; charset=utf-8)
 
         {
             "infinitive": "walk",
-            "language": "de",
-            "url": "/verbs/de/walk",
-            "id": "5849dfbbfa380e1a36daf91d"
+            "language": "en",
+            "url": "/verbs/en/walk",
+            "id": "5849dfbbfa380e1a36daf91d",
+            "conjugations": {
+                "present": {
+                    "1s": "walk",
+                    "2s": "walk",
+                    "3ms": "walks"
+                }
+            }
         }
 
 

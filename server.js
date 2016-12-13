@@ -14,7 +14,9 @@ mongoose.connect(process.env.DB || 'mongodb://localhost/verball')
 const app = express()
 app.set('port', process.env.PORT || 3000)
 
-app.use(morgan('dev'))
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev'))
+}
 app.use(helmet())
 app.use(json())
 app.use(compression())

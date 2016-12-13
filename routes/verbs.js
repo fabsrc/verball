@@ -202,7 +202,11 @@ verbs.post('/:lang([a-z]{2})/:infinitive/translations/:translang([a-z]{2})', (re
 verbs.put('/:id', (req, res, next) => {
   let updateParams = new Verb(req.body).toObject()
   delete updateParams._id
-  delete updateParams.translations
+
+  if (!updateParams.translations.length) {
+    delete updateParams.translations
+  }
+
   updateParams = flatten(updateParams)
 
   Verb.findByIdAndUpdate(req.params.id,
