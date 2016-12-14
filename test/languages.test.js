@@ -3,7 +3,7 @@ import request from 'supertest'
 import server from '../server'
 import { Language } from '../models'
 
-test.before.cb('Languages: seed database ', t => {
+test.skip.before.cb('Languages: seed database ', t => {
   Language.remove()
     .then(() => Language.insertMany([
       { _id: 'en', nativeName: 'English', name: 'english' },
@@ -14,7 +14,7 @@ test.before.cb('Languages: seed database ', t => {
     .then(() => t.end())
 })
 
-test.serial.cb('Languages: read collection', t => {
+test.skip.serial.cb('Languages: read collection', t => {
   request(server)
     .get('/languages')
     .end((err, res) => {
@@ -27,7 +27,7 @@ test.serial.cb('Languages: read collection', t => {
     })
 })
 
-test.serial.cb('Languages: read single', t => {
+test.skip.serial.cb('Languages: read single', t => {
   request(server)
     .get('/languages/en')
     .end((err, res) => {
@@ -42,7 +42,7 @@ test.serial.cb('Languages: read single', t => {
     })
 })
 
-test.serial.cb('Language: create', t => {
+test.skip.serial.cb('Language: create', t => {
   request(server)
     .post('/languages/')
     .send({ code: 'fr', name: 'french', nativeName: 'Français' })
@@ -63,7 +63,7 @@ test.serial.cb('Language: create', t => {
     })
 })
 
-test.serial.cb('Language: update', t => {
+test.skip.serial.cb('Language: update', t => {
   request(server)
     .put('/languages/fr')
     .send({ name: 'frank', nativeName: 'Frank' })
@@ -82,7 +82,7 @@ test.serial.cb('Language: update', t => {
     })
 })
 
-test.serial.cb('Language: delete', t => {
+test.skip.serial.cb('Language: delete', t => {
   request(server)
     .del('/languages/fr')
     .end((err, res) => {
@@ -97,6 +97,6 @@ test.serial.cb('Language: delete', t => {
     })
 })
 
-test.after.always('Languages: cleanup database', t => {
+test.skip.after.always('Languages: cleanup database', t => {
   Language.remove({}, (err) => { t.ifError(err) })
 })

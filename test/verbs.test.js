@@ -5,7 +5,7 @@ import { Verb } from '../models'
 
 let verbs
 
-test.before.cb('Verbs: seed database ', t => {
+test.skip.before.cb('Verbs: seed database ', t => {
   Verb.remove({})
     .then(() => Verb.insertMany([
       { infinitive: 'go', language: 'en' },
@@ -19,7 +19,7 @@ test.before.cb('Verbs: seed database ', t => {
     })
 })
 
-test.serial.cb('Verbs: read collection', t => {
+test.skip.serial.cb('Verbs: read collection', t => {
   request(server)
     .get('/verbs/')
     .end((err, res) => {
@@ -32,7 +32,7 @@ test.serial.cb('Verbs: read collection', t => {
     })
 })
 
-test.serial.cb('Verbs: read single', t => {
+test.skip.serial.cb('Verbs: read single', t => {
   request(server)
     .get('/verbs/' + verbs[0]._id)
     .end((err, res) => {
@@ -47,7 +47,7 @@ test.serial.cb('Verbs: read single', t => {
     })
 })
 
-test.serial.cb('Verbs: create', t => {
+test.skip.serial.cb('Verbs: create', t => {
   request(server)
     .post('/verbs/')
     .send({ infinitive: 'test', language: 'en' })
@@ -67,7 +67,7 @@ test.serial.cb('Verbs: create', t => {
     })
 })
 
-test.serial.cb('Verbs: update', t => {
+test.skip.serial.cb('Verbs: update', t => {
   request(server)
     .put('/verbs/' + verbs[0]._id)
     .send({ infinitive: 'try', language: 'En' })
@@ -87,7 +87,7 @@ test.serial.cb('Verbs: update', t => {
     })
 })
 
-test.serial.cb('Verbs: delete', t => {
+test.skip.serial.cb('Verbs: delete', t => {
   request(server)
     .del('/verbs/' + verbs[0]._id)
     .end((err, res) => {
@@ -102,6 +102,6 @@ test.serial.cb('Verbs: delete', t => {
     })
 })
 
-test.after.always('Verbs: cleanup database', t => {
+test.skip.after.always('Verbs: cleanup database', t => {
   Verb.remove({}, err => t.ifError(err))
 })
