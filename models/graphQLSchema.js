@@ -3,7 +3,8 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLInputObjectType
+  GraphQLInputObjectType,
+  GraphQLScalarType
 } from 'graphql'
 import { Language, Verb } from '.'
 
@@ -11,9 +12,38 @@ const LanguageType = new GraphQLObjectType({
   name: 'Language',
   description: '...',
   fields: () => ({
+    _id: { type: GraphQLString },
     code: { type: GraphQLString },
     name: { type: GraphQLString },
-    nativeName: { type: GraphQLString }
+    nativeName: { type: GraphQLString },
+    pronouns: {
+      type: new GraphQLObjectType({
+        name: 'Pronouns',
+        fields: {
+          s1: { type: GraphQLString },
+          p1: { type: GraphQLString },
+          s2: { type: GraphQLString },
+          p2: { type: GraphQLString },
+          s3m: { type: GraphQLString },
+          s3f: { type: GraphQLString },
+          s3n: { type: GraphQLString },
+          p3: { type: GraphQLString },
+          p3m: { type: GraphQLString },
+          p3f: { type: GraphQLString },
+          form: { type: GraphQLString }
+        }
+      })
+    },
+    tenses: {
+      type: new GraphQLList(new GraphQLObjectType({
+        name: 'Tense',
+        fields: {
+          '_id': { type: GraphQLString },
+          'name': { type: GraphQLString },
+          'nativeName': { type: GraphQLString }
+        }
+      }))
+    }
   })
 })
 
@@ -27,6 +57,12 @@ const VerbType = new GraphQLObjectType({
     language: {
       type: LanguageType,
       resolve: (verb) => Language.findById(verb.language).exec()
+    },
+    conjugations: {
+      type: new GraphQLScalarType({
+        name: 'Conjugations',
+        serialize: v => v
+      })
     },
     translations: {
       type: new GraphQLList(VerbType),
@@ -71,22 +107,18 @@ const Query = new GraphQLObjectType({
     verb: {
       type: VerbType,
       args: {
-        id: { type: GraphQLString },
-        verb: {
-          type: VerbInputType
-        }
+        _id: { type: GraphQLString },
+        language: { type: GraphQLString },
+        infinitive: { type: GraphQLString }
       },
-      resolve: (root, args) => {
-        if (args.id) {
-          return Verb.findById(args.id).exec()
-        } else {
-          return Verb.findByInfinitive(args.verb.language, args.verb.infinitive).exec()
-        }
-      }
+      resolve: (root, args) => Verb.findOne(args).exec()
     },
     verbs: {
       type: new GraphQLList(VerbType),
-      resolve: (root, args) => Verb.find().exec()
+      args: {
+        language: { type: GraphQLString }
+      },
+      resolve: (root, args) => Verb.find(args).exec()
     }
   }
 })

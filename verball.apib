@@ -24,13 +24,14 @@ Resources for the **Languages** of the **Verbs**.
                 "nativeName": "english",
                 "url": "/languages/en",
                 "pronouns": {
-                    "1s": "I",
-                    "1p": "we",
-                    "2s": "you",
-                    "2p": "you",
-                    "3ms": "he",
-                    "3fs": "she",
-                    "3ns": "it"
+                    "s1": "I",
+                    "p1": "we",
+                    "s2": "you",
+                    "p2": "you",
+                    "s3m": "he",
+                    "s3f": "she",
+                    "s3n": "it",
+                    "p3": "they"
                 },
                 "tenses": [
                     {
@@ -52,13 +53,14 @@ Resources for the **Languages** of the **Verbs**.
                 "nativeName": "deutsch",
                 "url": "/languages/de",
                 "pronouns": {
-                    "1s": "ich",
-                    "1p": "wir",
-                    "2s": "du",
-                    "2p": "ihr",
-                    "3ms": "er",
-                    "3fs": "sie",
-                    "3ns": "es",
+                    "s1": "ich",
+                    "p1": "wir",
+                    "s2": "du",
+                    "p2": "ihr",
+                    "s3m": "er",
+                    "s3f": "sie",
+                    "s3n": "es",
+                    "p3": "sie",
                     "form": "Sie"
                 },
                 "tenses": [
@@ -85,7 +87,7 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
 + code (string) - ISO 639-1 code of the language
 + name (string) - English name of the language
 + nativeName (string) - Native name of the language
-+ 
++ pronouns (object) - Pronouns of the language
 + tenses (array) - Array of tenses
     + name (string) - Name of the tense
     + nativeName (string) - Native name of the tense
@@ -96,7 +98,17 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
             "code": "fr",
             "name": "French",
             "nativeName": "Français",
-
+            "pronouns": {
+                "s1": "je",
+                "p1": "nous",
+                "s2": "tu",
+                "p2": "vous",
+                "s3m": "il",
+                "s3f": "elle",
+                "p3m": "ils",
+                "p3f": "elles",
+                "form": "vous"
+            },
             "tenses": [
                 {
                   "name": "simple past", 
@@ -123,6 +135,17 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
                 "name": "french",
                 "nativeName": "français",
                 "url": "/languages/fr",
+                "pronouns": {
+                    "s1": "je",
+                    "p1": "nous",
+                    "s2": "tu",
+                    "p2": "vous",
+                    "s3m": "il",
+                    "s3f": "elle",
+                    "p3m": "ils",
+                    "p3f": "elles",
+                    "form": "vous"
+                },
                 "tenses": [
                     {
                       "name": "simple past", 
@@ -156,13 +179,14 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
             "nativeName": "english",
             "url": "/languages/en",
             "pronouns": {
-                "1s": "I",
-                "1p": "we",
-                "2s": "you",
-                "2p": "you",
-                "3ms": "he",
-                "3fs": "she",
-                "3ns": "it"
+                "s1": "I",
+                "p1": "we",
+                "s2": "you",
+                "p2": "you",
+                "s3m": "he",
+                "s3f": "she",
+                "s3n": "it",
+                "p3": "they"
             },
             "tenses": [
                 {
@@ -190,7 +214,7 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
         {
             "nativeName": "american",
             "pronouns": {
-                "2p": "y'all"
+                "p2": "y'all"
             }
         }
 
@@ -209,13 +233,14 @@ To create a new **Language** you have `POST` a JSON document including the [ISO 
                 "nativeName": "american",
                 "url": "/languages/en",
                 "pronouns": {
-                    "1s": "I",
-                    "1p": "we",
-                    "2s": "you",
-                    "2p": "y'all",
-                    "3ms": "he",
-                    "3fs": "she",
-                    "3ns": "it"
+                    "s1": "I",
+                    "p1": "we",
+                    "s2": "you",
+                    "p2": "y'all",
+                    "s3m": "he",
+                    "s3f": "she",
+                    "s3n": "it",
+                    "p3" : "they"
                 },
                 "tenses": [
                     {
@@ -258,9 +283,9 @@ Resources for **Verbs**.
                 "id": "5849da8acb46ec150a090068",
                 "conjugations": {
                     "present": {
-                        "1s": "go",
-                        "2s": "go",
-                        "3ms": "goes"
+                        "s1": "go",
+                        "s2": "go",
+                        "s3m": "goes"
                     }
                 }
             },
@@ -271,9 +296,9 @@ Resources for **Verbs**.
                 "id": "5849dfbbfa380e1a36daf91d",
                 "conjugations": {
                     "present": {
-                        "1s": "gehe",
-                        "2s": "gehst",
-                        "3ms": "geht"
+                        "s1": "gehe",
+                        "s2": "gehst",
+                        "s3m": "geht"
                     }
                 }
             },
@@ -284,9 +309,9 @@ Resources for **Verbs**.
                 "id": "5849eb774a5d2f244f416e6a",
                 "conjugations": {
                     "present": {
-                        "1s": "fahre",
-                        "2s": "fährst",
-                        "3ms": "fährt"
+                        "s1": "fahre",
+                        "s2": "fährst",
+                        "s3m": "fährt"
                     }
                 }
             }
@@ -308,9 +333,9 @@ Resources for **Verbs**.
                 "id": "5849da8acb46ec150a090068",
                 "conjugations": {
                     "present": {
-                        "1s": "go",
-                        "2s": "go",
-                        "3ms": "goes"
+                        "s1": "go",
+                        "s2": "go",
+                        "s3m": "goes"
                     }
                 }
             }
@@ -331,9 +356,9 @@ Resources for **Verbs**.
                 "id": "5849da8acb46ec150a090068",
                 "conjugations": {
                     "present": {
-                        "1s": "go",
-                        "2s": "go",
-                        "3ms": "goes"
+                        "s1": "go",
+                        "s2": "go",
+                        "s3m": "goes"
                     }
                 }
             }
@@ -351,9 +376,9 @@ Resources for **Verbs**.
             "language": "en",
             "conjugations": {
                 "present": {
-                    "1s": "fly",
-                    "2s": "fly",
-                    "3ms": "flies"
+                    "s1": "fly",
+                    "s2": "fly",
+                    "s3m": "flies"
                 }
             }
         }
@@ -367,9 +392,9 @@ Resources for **Verbs**.
             "id": "5849da8acb46ec150a090068",
             "conjugations": {
                 "present": {
-                    "1s": "fly",
-                    "2s": "fly",
-                    "3ms": "flies"
+                    "s1": "fly",
+                    "s2": "fly",
+                    "s3m": "flies"
                 }
             }
         }
@@ -391,9 +416,9 @@ Resources for **Verbs**.
             "id": "5849da8acb46ec150a090068",
             "conjugations": {
                 "present": {
-                    "1s": "go",
-                    "2s": "go",
-                    "3ms": "goes"
+                    "s1": "go",
+                    "s2": "go",
+                    "s3m": "goes"
                 }
             }
         }
@@ -414,9 +439,9 @@ Resources for **Verbs**.
             "id": "5849da8acb46ec150a090068",
             "conjugations": {
                 "present": {
-                    "1s": "go",
-                    "2s": "go",
-                    "3ms": "goes"
+                    "s1": "go",
+                    "s2": "go",
+                    "s3m": "goes"
                 }
             }
         }
@@ -438,9 +463,9 @@ Resources for **Verbs**.
                 "id": "5849dfbbfa380e1a36daf91d",
                 "conjugations": {
                     "present": {
-                        "1s": "gehe",
-                        "2s": "gehst",
-                        "3ms": "geht"
+                        "s1": "gehe",
+                        "s2": "gehst",
+                        "s3m": "geht"
                     }
                 }
             }
@@ -462,9 +487,9 @@ Resources for **Verbs**.
                 "id": "5849dfbbfa380e1a36daf91d",
                 "conjugations": {
                     "present": {
-                        "1s": "gehe",
-                        "2s": "gehst",
-                        "3ms": "geht"
+                        "s1": "gehe",
+                        "s2": "gehst",
+                        "s3m": "geht"
                     }
                 }
             }
@@ -484,9 +509,9 @@ Resources for **Verbs**.
             "language": "de",
             "conjugations": {
                 "present": {
-                    "1s": "gehe hin",
-                    "2s": "gehst hin",
-                    "3ms": "geht hin"
+                    "s1": "gehe hin",
+                    "s2": "gehst hin",
+                    "s3m": "geht hin"
                 }
             }
         }
@@ -501,9 +526,9 @@ Resources for **Verbs**.
                 "id": "5849da8acb46ec150a090068",
                 "conjugations": {
                     "present": {
-                        "1s": "go",
-                        "2s": "go",
-                        "3ms": "goes"
+                        "s1": "go",
+                        "s2": "go",
+                        "s3m": "goes"
                     }
                 }
             },
@@ -514,9 +539,9 @@ Resources for **Verbs**.
                 "id": "584b0ed824a4b9032d2cde1f",
                 "conjugations": {
                     "present": {
-                        "1s": "gehe hin",
-                        "2s": "gehst hin",
-                        "3ms": "geht hin"
+                        "s1": "gehe hin",
+                        "s2": "gehst hin",
+                        "s3m": "geht hin"
                     }
                 }
             }
@@ -546,9 +571,9 @@ Resources for **Verbs**.
                 "id": "5849da8acb46ec150a090068",
                 "conjugations": {
                     "present": {
-                        "1s": "go",
-                        "2s": "go",
-                        "3ms": "goes"
+                        "s1": "go",
+                        "s2": "go",
+                        "s3m": "goes"
                     }
                 }
             },
@@ -559,9 +584,9 @@ Resources for **Verbs**.
                 "id": "5849eb774a5d2f244f416e6a",
                 "conjugations": {
                     "present": {
-                        "1s": "fahre",
-                        "2s": "fährst",
-                        "3ms": "fährt"
+                        "s1": "fahre",
+                        "s2": "fährst",
+                        "s3m": "fährt"
                     }
                 }
             }
@@ -583,9 +608,9 @@ Resources for **Verbs**.
                 "id": "5849da8acb46ec150a090068",
                 "conjugations": {
                     "present": {
-                        "1s": "go",
-                        "2s": "go",
-                        "3ms": "goes"
+                        "s1": "go",
+                        "s2": "go",
+                        "s3m": "goes"
                     }
                 }
             },
@@ -596,9 +621,9 @@ Resources for **Verbs**.
                 "id": "5849eb774a5d2f244f416e6a",
                 "conjugations": {
                     "present": {
-                        "1s": "fahre",
-                        "2s": "fährst",
-                        "3ms": "fährt"
+                        "s1": "fahre",
+                        "s2": "fährst",
+                        "s3m": "fährt"
                     }
                 }
             }
@@ -632,9 +657,9 @@ Resources for **Verbs**.
             "id": "5849dfbbfa380e1a36daf91d",
             "conjugations": {
                 "present": {
-                    "1s": "walk",
-                    "2s": "walk",
-                    "3ms": "walks"
+                    "s1": "walk",
+                    "s2": "walk",
+                    "s3m": "walks"
                 }
             }
         }
@@ -652,9 +677,9 @@ Resources for **Verbs**.
             "infinitive": "Walk",
             "conjugations": {
                 "present": {
-                    "1s": "walk",
-                    "2s": "walk",
-                    "3ms": "walk"
+                    "s1": "walk",
+                    "s2": "walk",
+                    "s3m": "walk"
                 }
             }
         }
@@ -668,9 +693,9 @@ Resources for **Verbs**.
             "id": "5849dfbbfa380e1a36daf91d",
             "conjugations": {
                 "present": {
-                    "1s": "walk",
-                    "2s": "walk",
-                    "3ms": "walks"
+                    "s1": "walk",
+                    "s2": "walk",
+                    "s3m": "walks"
                 }
             }
         }

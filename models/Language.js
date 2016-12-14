@@ -32,14 +32,17 @@ const languageSchema = new Schema(
       lowercase: true
     },
     pronouns: {
-      '1s': String,
-      '1p': String,
-      '2s': String,
-      '2p': String,
-      '3ms': String,
-      '3fs': String,
-      '3ns': String,
-      'form': String
+      s1: String,
+      p1: String,
+      s2: String,
+      p2: String,
+      s3m: String,
+      s3f: String,
+      s3n: String,
+      p3: String,
+      p3m: String,
+      p3f: String,
+      form: String
     },
     tenses: {
       type: [{
@@ -48,7 +51,8 @@ const languageSchema = new Schema(
         },
         name: {
           type: String,
-          required: true
+          required: true,
+          lowercase: true
         },
         nativeName: {
           type: String,

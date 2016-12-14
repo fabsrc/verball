@@ -12,14 +12,15 @@ hooks.beforeEach((transaction, done) => {
         _id: 'en',
         nativeName: 'English',
         name: 'english',
-        'pronouns': {
-          '1s': 'I',
-          '1p': 'we',
-          '2s': 'you',
-          '2p': 'you',
-          '3ms': 'he',
-          '3fs': 'she',
-          '3ns': 'it'
+        pronouns: {
+          's1': 'I',
+          'p1': 'we',
+          's2': 'you',
+          'p2': 'you',
+          's3m': 'he',
+          's3f': 'she',
+          's3n': 'it',
+          'p3': 'they'
         },
         tenses: [
           {
@@ -36,14 +37,15 @@ hooks.beforeEach((transaction, done) => {
         _id: 'de',
         nativeName: 'Deutsch',
         name: 'german',
-        'pronouns': {
-          '1s': 'ich',
-          '1p': 'wir',
-          '2s': 'du',
-          '2p': 'ihr',
-          '3ms': 'er',
-          '3fs': 'sie',
-          '3ns': 'es',
+        pronouns: {
+          's1': 'ich',
+          'p1': 'wir',
+          's2': 'du',
+          'p2': 'ihr',
+          's3m': 'er',
+          's3f': 'sie',
+          's3n': 'es',
+          'p3': 'sie',
           'form': 'Sie'
         },
         tenses: [
@@ -72,9 +74,9 @@ hooks.beforeEach((transaction, done) => {
         translations: [Types.ObjectId('5849dfbbfa380e1a36daf91d')],
         conjugations: {
           present: {
-            '1s': 'go',
-            '2s': 'go',
-            '3ms': 'goes'
+            's1': 'go',
+            's2': 'go',
+            's3m': 'goes'
           }
         }
       },
@@ -85,9 +87,9 @@ hooks.beforeEach((transaction, done) => {
         translations: [Types.ObjectId('5849da8acb46ec150a090068')],
         conjugations: {
           present: {
-            '1s': 'gehe',
-            '2s': 'gehst',
-            '3ms': 'geht'
+            's1': 'gehe',
+            's2': 'gehst',
+            's3m': 'geht'
           }
         }
       },
@@ -97,9 +99,9 @@ hooks.beforeEach((transaction, done) => {
         language: 'de',
         conjugations: {
           present: {
-            '1s': 'fahre',
-            '2s': 'fährst',
-            '3ms': 'fährt'
+            's1': 'fahre',
+            's2': 'fährst',
+            's3m': 'fährt'
           }
         }
       }
