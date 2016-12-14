@@ -16,6 +16,13 @@ $ npm start
 
 Listens on port `3000` by default. Set `PORT` to use a custom port.
 
+## Seed Database
+
+```bash
+$ npm run seed
+```
+
+
 ## Development
 
 ```bash
