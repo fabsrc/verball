@@ -8,13 +8,14 @@
     "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"english"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"/languages/en"</span></span>,
     "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"I"</span></span>,
-      "<span class="hljs-attribute">1p</span>": <span class="hljs-value"><span class="hljs-string">"we"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
-      "<span class="hljs-attribute">2p</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"he"</span></span>,
-      "<span class="hljs-attribute">3fs</span>": <span class="hljs-value"><span class="hljs-string">"she"</span></span>,
-      "<span class="hljs-attribute">3ns</span>": <span class="hljs-value"><span class="hljs-string">"it"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"I"</span></span>,
+      "<span class="hljs-attribute">p1</span>": <span class="hljs-value"><span class="hljs-string">"we"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
+      "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"he"</span></span>,
+      "<span class="hljs-attribute">s3f</span>": <span class="hljs-value"><span class="hljs-string">"she"</span></span>,
+      "<span class="hljs-attribute">s3n</span>": <span class="hljs-value"><span class="hljs-string">"it"</span></span>,
+      "<span class="hljs-attribute">p3</span>": <span class="hljs-value"><span class="hljs-string">"they"</span>
     </span>}</span>,
     "<span class="hljs-attribute">tenses</span>": <span class="hljs-value">[
       {
@@ -36,13 +37,14 @@
     "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"deutsch"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"/languages/de"</span></span>,
     "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-      "<span class="hljs-attribute">1p</span>": <span class="hljs-value"><span class="hljs-string">"wir"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
-      "<span class="hljs-attribute">2p</span>": <span class="hljs-value"><span class="hljs-string">"ihr"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"er"</span></span>,
-      "<span class="hljs-attribute">3fs</span>": <span class="hljs-value"><span class="hljs-string">"sie"</span></span>,
-      "<span class="hljs-attribute">3ns</span>": <span class="hljs-value"><span class="hljs-string">"es"</span></span>,
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+      "<span class="hljs-attribute">p1</span>": <span class="hljs-value"><span class="hljs-string">"wir"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
+      "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"ihr"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"er"</span></span>,
+      "<span class="hljs-attribute">s3f</span>": <span class="hljs-value"><span class="hljs-string">"sie"</span></span>,
+      "<span class="hljs-attribute">s3n</span>": <span class="hljs-value"><span class="hljs-string">"es"</span></span>,
+      "<span class="hljs-attribute">p3</span>": <span class="hljs-value"><span class="hljs-string">"sie"</span></span>,
       "<span class="hljs-attribute">form</span>": <span class="hljs-value"><span class="hljs-string">"Sie"</span>
     </span>}</span>,
     "<span class="hljs-attribute">tenses</span>": <span class="hljs-value">[
@@ -69,7 +71,9 @@
 <li>
 <p>nativeName (string) - Native name of the language</p>
 </li>
-<li></li>
+<li>
+<p>pronouns (object) - Pronouns of the language</p>
+</li>
 <li>
 <p>tenses (array) - Array of tenses</p>
 <ul>
@@ -82,6 +86,17 @@
   "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"fr"</span></span>,
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"French"</span></span>,
   "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"Français"</span></span>,
+  "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"je"</span></span>,
+    "<span class="hljs-attribute">p1</span>": <span class="hljs-value"><span class="hljs-string">"nous"</span></span>,
+    "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"tu"</span></span>,
+    "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"vous"</span></span>,
+    "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"il"</span></span>,
+    "<span class="hljs-attribute">s3f</span>": <span class="hljs-value"><span class="hljs-string">"elle"</span></span>,
+    "<span class="hljs-attribute">p3m</span>": <span class="hljs-value"><span class="hljs-string">"ils"</span></span>,
+    "<span class="hljs-attribute">p3f</span>": <span class="hljs-value"><span class="hljs-string">"elles"</span></span>,
+    "<span class="hljs-attribute">form</span>": <span class="hljs-value"><span class="hljs-string">"vous"</span>
+  </span>}</span>,
   "<span class="hljs-attribute">tenses</span>": <span class="hljs-value">[
     {
       "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"simple past"</span></span>,
@@ -98,6 +113,17 @@
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"french"</span></span>,
   "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"français"</span></span>,
   "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"/languages/fr"</span></span>,
+  "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"je"</span></span>,
+    "<span class="hljs-attribute">p1</span>": <span class="hljs-value"><span class="hljs-string">"nous"</span></span>,
+    "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"tu"</span></span>,
+    "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"vous"</span></span>,
+    "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"il"</span></span>,
+    "<span class="hljs-attribute">s3f</span>": <span class="hljs-value"><span class="hljs-string">"elle"</span></span>,
+    "<span class="hljs-attribute">p3m</span>": <span class="hljs-value"><span class="hljs-string">"ils"</span></span>,
+    "<span class="hljs-attribute">p3f</span>": <span class="hljs-value"><span class="hljs-string">"elles"</span></span>,
+    "<span class="hljs-attribute">form</span>": <span class="hljs-value"><span class="hljs-string">"vous"</span>
+  </span>}</span>,
   "<span class="hljs-attribute">tenses</span>": <span class="hljs-value">[
     {
       "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"simple past"</span></span>,
@@ -118,13 +144,14 @@
   "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"english"</span></span>,
   "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"/languages/en"</span></span>,
   "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"I"</span></span>,
-    "<span class="hljs-attribute">1p</span>": <span class="hljs-value"><span class="hljs-string">"we"</span></span>,
-    "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
-    "<span class="hljs-attribute">2p</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
-    "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"he"</span></span>,
-    "<span class="hljs-attribute">3fs</span>": <span class="hljs-value"><span class="hljs-string">"she"</span></span>,
-    "<span class="hljs-attribute">3ns</span>": <span class="hljs-value"><span class="hljs-string">"it"</span>
+    "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"I"</span></span>,
+    "<span class="hljs-attribute">p1</span>": <span class="hljs-value"><span class="hljs-string">"we"</span></span>,
+    "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
+    "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
+    "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"he"</span></span>,
+    "<span class="hljs-attribute">s3f</span>": <span class="hljs-value"><span class="hljs-string">"she"</span></span>,
+    "<span class="hljs-attribute">s3n</span>": <span class="hljs-value"><span class="hljs-string">"it"</span></span>,
+    "<span class="hljs-attribute">p3</span>": <span class="hljs-value"><span class="hljs-string">"they"</span>
   </span>}</span>,
   "<span class="hljs-attribute">tenses</span>": <span class="hljs-value">[
     {
@@ -150,7 +177,7 @@
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"american"</span></span>,
   "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">2p</span>": <span class="hljs-value"><span class="hljs-string">"y'all"</span>
+    "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"y'all"</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span><br><span class="hljs-attribute">Location</span>: <span class="hljs-string">/languages/en</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"en"</span></span>,
@@ -159,13 +186,14 @@
   "<span class="hljs-attribute">nativeName</span>": <span class="hljs-value"><span class="hljs-string">"american"</span></span>,
   "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"/languages/en"</span></span>,
   "<span class="hljs-attribute">pronouns</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"I"</span></span>,
-    "<span class="hljs-attribute">1p</span>": <span class="hljs-value"><span class="hljs-string">"we"</span></span>,
-    "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
-    "<span class="hljs-attribute">2p</span>": <span class="hljs-value"><span class="hljs-string">"y'all"</span></span>,
-    "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"he"</span></span>,
-    "<span class="hljs-attribute">3fs</span>": <span class="hljs-value"><span class="hljs-string">"she"</span></span>,
-    "<span class="hljs-attribute">3ns</span>": <span class="hljs-value"><span class="hljs-string">"it"</span>
+    "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"I"</span></span>,
+    "<span class="hljs-attribute">p1</span>": <span class="hljs-value"><span class="hljs-string">"we"</span></span>,
+    "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"you"</span></span>,
+    "<span class="hljs-attribute">p2</span>": <span class="hljs-value"><span class="hljs-string">"y'all"</span></span>,
+    "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"he"</span></span>,
+    "<span class="hljs-attribute">s3f</span>": <span class="hljs-value"><span class="hljs-string">"she"</span></span>,
+    "<span class="hljs-attribute">s3n</span>": <span class="hljs-value"><span class="hljs-string">"it"</span></span>,
+    "<span class="hljs-attribute">p3</span>": <span class="hljs-value"><span class="hljs-string">"they"</span>
   </span>}</span>,
   "<span class="hljs-attribute">tenses</span>": <span class="hljs-value">[
     {
@@ -189,9 +217,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
       </span>}
     </span>}
   </span>},
@@ -202,9 +230,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849dfbbfa380e1a36daf91d"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"gehe"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"gehst"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"geht"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"gehe"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"gehst"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"geht"</span>
       </span>}
     </span>}
   </span>},
@@ -215,9 +243,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849eb774a5d2f244f416e6a"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"fahre"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"fährst"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"fährt"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"fahre"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"fährst"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"fährt"</span>
       </span>}
     </span>}
   </span>}
@@ -230,9 +258,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
       </span>}
     </span>}
   </span>}
@@ -245,9 +273,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
       </span>}
     </span>}
   </span>}
@@ -264,9 +292,9 @@
   "<span class="hljs-attribute">language</span>": <span class="hljs-value"><span class="hljs-string">"en"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"flies"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"flies"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -276,9 +304,9 @@
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"flies"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"fly"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"flies"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="verbs-verb" class="resource"><h3 class="resource-heading">Verb <a href="#verbs-verb" class="permalink">&nbsp;&para;</a></h3><div id="verbs-verb-get" class="action get"><h4 class="action-heading"><div class="name">Get a Verb By ID</div><a href="#verbs-verb-get" class="method get">GET</a><code class="uri">/verbs/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/verbs/<span class="hljs-attribute" title="id">5849da8acb46ec150a090068</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>5849da8acb46ec150a090068</span></span><p>ID of the Verb</p>
@@ -289,9 +317,9 @@
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="verbs-verb-get-1" class="action get"><h4 class="action-heading"><div class="name">Get a Verb By Language and Infinitive</div><a href="#verbs-verb-get-1" class="method get">GET</a><code class="uri">/verbs/{language_code}/{infinitive}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/verbs/<span class="hljs-attribute" title="language_code">en</span>/<span class="hljs-attribute" title="infinitive">go</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>language_code</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>en</span></span><p>ISO 639-1 code of the Language</p>
@@ -303,9 +331,9 @@
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="verbs-verb-get-2" class="action get"><h4 class="action-heading"><div class="name">Get Translations of a Verb by Language and Infinitive</div><a href="#verbs-verb-get-2" class="method get">GET</a><code class="uri">/verbs/{language_code}/{infinitive}/translations</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/verbs/<span class="hljs-attribute" title="language_code">en</span>/<span class="hljs-attribute" title="infinitive">go</span>/translations</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>language_code</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>en</span></span><p>ISO 639-1 code of the Language</p>
@@ -318,9 +346,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849dfbbfa380e1a36daf91d"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"gehe"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"gehst"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"geht"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"gehe"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"gehst"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"geht"</span>
       </span>}
     </span>}
   </span>}
@@ -333,9 +361,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849dfbbfa380e1a36daf91d"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"gehe"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"gehst"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"geht"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"gehe"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"gehst"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"geht"</span>
       </span>}
     </span>}
   </span>}
@@ -346,9 +374,9 @@
   "<span class="hljs-attribute">language</span>": <span class="hljs-value"><span class="hljs-string">"de"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"gehe hin"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"gehst hin"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"geht hin"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"gehe hin"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"gehst hin"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"geht hin"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
@@ -359,9 +387,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
       </span>}
     </span>}
   </span>},
@@ -372,9 +400,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"584b0ed824a4b9032d2cde1f"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"gehe hin"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"gehst hin"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"geht hin"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"gehe hin"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"gehst hin"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"geht hin"</span>
       </span>}
     </span>}
   </span>}
@@ -391,9 +419,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
       </span>}
     </span>}
   </span>},
@@ -404,9 +432,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849eb774a5d2f244f416e6a"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"fahre"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"fährst"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"fährt"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"fahre"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"fährst"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"fährt"</span>
       </span>}
     </span>}
   </span>}
@@ -420,9 +448,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849da8acb46ec150a090068"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"go"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"goes"</span>
       </span>}
     </span>}
   </span>},
@@ -433,9 +461,9 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849eb774a5d2f244f416e6a"</span></span>,
     "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"fahre"</span></span>,
-        "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"fährst"</span></span>,
-        "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"fährt"</span>
+        "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"fahre"</span></span>,
+        "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"fährst"</span></span>,
+        "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"fährt"</span>
       </span>}
     </span>}
   </span>}
@@ -456,9 +484,9 @@
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849dfbbfa380e1a36daf91d"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"walks"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"walks"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="verbs-verb-put-1" class="action put"><h4 class="action-heading"><div class="name">Update Verb by Language Code and Infinitive</div><a href="#verbs-verb-put-1" class="method put">PUT</a><code class="uri">/verbs/{language_code}/{infinitive}</code></h4><h4>Example URI</h4><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname"></span>/verbs/<span class="hljs-attribute" title="language_code">en</span>/<span class="hljs-attribute" title="infinitive">go</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>language_code</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>en</span></span><p>ISO 639-1 code of the Language</p>
@@ -467,9 +495,9 @@
   "<span class="hljs-attribute">infinitive</span>": <span class="hljs-value"><span class="hljs-string">"Walk"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -479,15 +507,15 @@
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5849dfbbfa380e1a36daf91d"</span></span>,
   "<span class="hljs-attribute">conjugations</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">present</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">1s</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
-      "<span class="hljs-attribute">2s</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
-      "<span class="hljs-attribute">3ms</span>": <span class="hljs-value"><span class="hljs-string">"walks"</span>
+      "<span class="hljs-attribute">s1</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
+      "<span class="hljs-attribute">s2</span>": <span class="hljs-value"><span class="hljs-string">"walk"</span></span>,
+      "<span class="hljs-attribute">s3m</span>": <span class="hljs-value"><span class="hljs-string">"walks"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="verbs-verb-delete" class="action delete"><h4 class="action-heading"><div class="name">Delete Verb by ID</div><a href="#verbs-verb-delete" class="method delete">DELETE</a><code class="uri">/verbs/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname"></span>/verbs/<span class="hljs-attribute" title="id">5849da8acb46ec150a090068</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>5849da8acb46ec150a090068</span></span><p>ID of the Verb</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div><div id="verbs-verb-delete-1" class="action delete"><h4 class="action-heading"><div class="name">Delete Verb by Language Code and Infinitive</div><a href="#verbs-verb-delete-1" class="method delete">DELETE</a><code class="uri">/verbs/{language_code}/{infinitive}</code></h4><h4>Example URI</h4><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname"></span>/verbs/<span class="hljs-attribute" title="language_code">en</span>/<span class="hljs-attribute" title="infinitive">go</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>language_code</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>en</span></span><p>ISO 639-1 code of the Language</p>
 </dd><dt>infinitive</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>go</span></span><p>Infinitive of the Verb</p>
-</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 13 Dec 2016</p><script>/* eslint-env browser */
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 14 Dec 2016</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
