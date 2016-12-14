@@ -197,49 +197,49 @@ const verbsDe = [
 
 const verbsFr = [
   { infinitive: 'aller',
-   language: 'fr',
-   conjugations: {
-     present: {
-       s1: 'vais',
-       p1: 'allons',
-       s2: 'vas',
-       p2: 'allez',
-       s3m: 'va',
-       s3f: 'va',
-       p3: 'vont',
-       form: 'allez'
-     }
-   }
+    language: 'fr',
+    conjugations: {
+      present: {
+        s1: 'vais',
+        p1: 'allons',
+        s2: 'vas',
+        p2: 'allez',
+        s3m: 'va',
+        s3f: 'va',
+        p3: 'vont',
+        form: 'allez'
+      }
+    }
   },
   { infinitive: 'regarder',
-   language: 'fr',
-   conjugations: {
-     present: {
-       s1: 'regarde',
-       p1: 'regardons',
-       s2: 'regardes',
-       p2: 'regardez',
-       s3m: 'regarde',
-       s3f: 'regarde',
-       p3: 'regardent',
-       form: 'regardez'
-     }
-   }
+    language: 'fr',
+    conjugations: {
+      present: {
+        s1: 'regarde',
+        p1: 'regardons',
+        s2: 'regardes',
+        p2: 'regardez',
+        s3m: 'regarde',
+        s3f: 'regarde',
+        p3: 'regardent',
+        form: 'regardez'
+      }
+    }
   },
   { infinitive: 'dormir',
-   language: 'fr',
-   conjugations: {
-     present: {
-       s1: 'dors',
-       p1: 'dormons',
-       s2: 'dors',
-       p2: 'dormez',
-       s3m: 'dort',
-       s3f: 'dort',
-       p3: 'dorment',
-       form: 'dormez'
-     }
-   }
+    language: 'fr',
+    conjugations: {
+      present: {
+        s1: 'dors',
+        p1: 'dormons',
+        s2: 'dors',
+        p2: 'dormez',
+        s3m: 'dort',
+        s3f: 'dort',
+        p3: 'dorment',
+        form: 'dormez'
+      }
+    }
   }
 ]
 
